@@ -8,37 +8,28 @@
 import UIKit
 
 class MainTabbarController: UITabBarController {
+    let mainTabImageName = "house"
+    let secondTabImageName = "cards"
     
-    let firstVC = FirstViewController()
-    let secondVC = SecondViewController()
+    let mainViewController = MainViewController()
+    let secondViewController = RandomPhotoViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setViewControllers([
-            firstVC,
-            secondVC
+        configureTabbar()
+    }
+    
+    func configureTabbar() {
+        setViewControllers([
+            mainViewController,
+            secondViewController
         ], animated: true)
         
-        firstVC.tabBarItem.image = UIImage(systemName: "list.bullet")
-        firstVC.tabBarItem.selectedImage = UIImage(systemName: "list.bullet.circle.fill")
-        
-        secondVC.tabBarItem.image = UIImage(systemName: "magnifyingglass.circle")
-        secondVC.tabBarItem.selectedImage = UIImage(systemName: "magnifyingglass.circle.fill")
-        // Do any additional setup after loading the view.
-    }
-}
-
-class FirstViewController: UIViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemPink
-    }
-}
-
-class SecondViewController: UIViewController {
-    override func viewDidLoad() {
-        view.backgroundColor = .systemMint
+        mainViewController.tabBarItem.image = UIImage(named: mainTabImageName)
+        secondViewController.tabBarItem.image = UIImage(named: secondTabImageName)
+        tabBar.backgroundColor = .label
+        tabBar.tintColor = .systemBackground
+        tabBar.unselectedItemTintColor = .systemGray
     }
 }
