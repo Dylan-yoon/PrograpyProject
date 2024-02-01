@@ -11,7 +11,7 @@ extension UICollectionViewLayout {
     
     static let mainlayout = UICollectionViewCompositionalLayout { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
         
-        guard let sectionKind = Section(rawValue: sectionIndex) else { return nil }
+        guard let sectionKind = MainSection(rawValue: sectionIndex) else { return nil }
         
         let section: NSCollectionLayoutSection
         

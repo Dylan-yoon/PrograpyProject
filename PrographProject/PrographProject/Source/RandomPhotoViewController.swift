@@ -14,4 +14,3 @@ class RandomPhotoViewController: UIViewController {
     }
     
 }
-

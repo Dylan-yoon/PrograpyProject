@@ -15,6 +15,11 @@
 		F62583542B67A122001DC03F /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583532B67A122001DC03F /* MainTabbarController.swift */; };
 		F62583562B67E838001DC03F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583552B67E838001DC03F /* MainViewController.swift */; };
 		F62583582B6809D2001DC03F /* RandomPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583572B6809D2001DC03F /* RandomPhotoViewController.swift */; };
+		F625835C2B680E8C001DC03F /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F625835B2B680E8C001DC03F /* PhotoCell.swift */; };
+		F625835E2B691786001DC03F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F625835D2B691786001DC03F /* MainViewModel.swift */; };
+		F62583632B69260C001DC03F /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583622B69260C001DC03F /* MainHeaderView.swift */; };
+		F62583872B6AC1DC001DC03F /* UICollectionViewLayout + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583862B6AC1DC001DC03F /* UICollectionViewLayout + Extension.swift */; };
+		F625838D2B6AC383001DC03F /* MainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F625838C2B6AC383001DC03F /* MainSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +35,11 @@
 		F62583532B67A122001DC03F /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		F62583552B67E838001DC03F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F62583572B6809D2001DC03F /* RandomPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotoViewController.swift; sourceTree = "<group>"; };
+		F625835B2B680E8C001DC03F /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		F625835D2B691786001DC03F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		F62583622B69260C001DC03F /* MainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
+		F62583862B6AC1DC001DC03F /* UICollectionViewLayout + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout + Extension.swift"; sourceTree = "<group>"; };
+		F625838C2B6AC383001DC03F /* MainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,16 +92,69 @@
 		F625833E2B679E0D001DC03F /* PrographProject */ = {
 			isa = PBXGroup;
 			children = (
-				F625833F2B679E0D001DC03F /* AppDelegate.swift */,
-				F62583412B679E0D001DC03F /* SceneDelegate.swift */,
-				F62583532B67A122001DC03F /* MainTabbarController.swift */,
-				F62583552B67E838001DC03F /* MainViewController.swift */,
-				F62583572B6809D2001DC03F /* RandomPhotoViewController.swift */,
-				F62583482B679E0E001DC03F /* Assets.xcassets */,
-				F625834A2B679E0E001DC03F /* LaunchScreen.storyboard */,
 				F625834D2B679E0E001DC03F /* Info.plist */,
+				F62583892B6AC27E001DC03F /* Resource */,
+				F625838B2B6AC305001DC03F /* Source */,
 			);
 			path = PrographProject;
+			sourceTree = "<group>";
+		};
+		F625835F2B6917EA001DC03F /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				F62583552B67E838001DC03F /* MainViewController.swift */,
+				F625835D2B691786001DC03F /* MainViewModel.swift */,
+				F62583622B69260C001DC03F /* MainHeaderView.swift */,
+				F625835B2B680E8C001DC03F /* PhotoCell.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		F62583882B6AC20E001DC03F /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				F62583862B6AC1DC001DC03F /* UICollectionViewLayout + Extension.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		F62583892B6AC27E001DC03F /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				F62583482B679E0E001DC03F /* Assets.xcassets */,
+				F625834A2B679E0E001DC03F /* LaunchScreen.storyboard */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		F625838A2B6AC299001DC03F /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				F625833F2B679E0D001DC03F /* AppDelegate.swift */,
+				F62583412B679E0D001DC03F /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		F625838B2B6AC305001DC03F /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F625838A2B6AC299001DC03F /* Application */,
+				F62583532B67A122001DC03F /* MainTabbarController.swift */,
+				F625835F2B6917EA001DC03F /* MainView */,
+				F62583572B6809D2001DC03F /* RandomPhotoViewController.swift */,
+				F625838E2B6AC65E001DC03F /* Model */,
+				F62583882B6AC20E001DC03F /* Util */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		F625838E2B6AC65E001DC03F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F625838C2B6AC383001DC03F /* MainSection.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,10 +271,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F62583872B6AC1DC001DC03F /* UICollectionViewLayout + Extension.swift in Sources */,
+				F62583632B69260C001DC03F /* MainHeaderView.swift in Sources */,
+				F625835E2B691786001DC03F /* MainViewModel.swift in Sources */,
 				F62583402B679E0D001DC03F /* AppDelegate.swift in Sources */,
 				F62583582B6809D2001DC03F /* RandomPhotoViewController.swift in Sources */,
 				F62583542B67A122001DC03F /* MainTabbarController.swift in Sources */,
 				F62583422B679E0D001DC03F /* SceneDelegate.swift in Sources */,
+				F625835C2B680E8C001DC03F /* PhotoCell.swift in Sources */,
+				F625838D2B6AC383001DC03F /* MainSection.swift in Sources */,
 				F62583562B67E838001DC03F /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,7 @@
 import UIKit
 
 class PhotoCell: UICollectionViewCell {
+    static let id = "PhotoCell"
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -15,6 +16,8 @@ class PhotoCell: UICollectionViewCell {
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .systemBlue
+        imageView.layer.cornerRadius = 10
+        
         return imageView
     }()
     
@@ -48,6 +51,14 @@ class PhotoCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+//    
+//    override func layoutSubviews() {
+//        
+//        super.layoutSubviews()
+//        titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
+////        subtitleLabel.preferredMaxLayoutWidth = subtitleLabel.frame.size.width
+//        super.layoutSubviews()
+//    }
     
     func configure(with image: UIImage, title: String) {
         imageView.image = image
