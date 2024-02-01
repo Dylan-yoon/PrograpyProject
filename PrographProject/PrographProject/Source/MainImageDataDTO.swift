@@ -32,7 +32,11 @@ struct Urls: Codable {
     let smallS3: String
 
     enum CodingKeys: String, CodingKey {
-        case raw, full, regular, small, thumb
+        case raw
+        case full
+        case regular
+        case small
+        case thumb
         case smallS3 = "small_s3"
     }
 }
@@ -45,7 +49,8 @@ struct Links: Codable {
 
     enum CodingKeys: String, CodingKey {
         case linksSelf = "self"
-        case html, download
+        case html
+        case download
         case downloadLocation = "download_location"
     }
 }
