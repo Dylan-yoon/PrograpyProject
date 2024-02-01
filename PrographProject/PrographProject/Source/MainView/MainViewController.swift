@@ -37,16 +37,6 @@ class MainViewController: UIViewController {
         cc()
         aa()
         aa()
-        
-        NetworkManager.fetchData { result in
-            switch result {
-            case .success(let data):
-                print(data)
-            case .failure(let error):
-                print("ERROR다 이놈아 : ", error)
-            }
-        }
-        
     }
     
     private func configureCollectionView() {

@@ -6,21 +6,17 @@
 //
 
 import Foundation
-/*
- Main            https://api.unsplash.com/photos
- RandomPhoto     https://api.unsplash.com/photos/random
- Detail GET      https://api.unsplash.com/photos/:id
- */
 
 class NetworkManager {
     
-    static func fetchData(completion: @escaping (Result<[MainImageDataDTO], NetworkError>) -> Void) {
-        //URL 수정 Page, per_page, order_by(Valid values: latest, oldest, popular; default: latest)
-        let testUrl = "https://api.unsplash.com/photos/?client_id=IxQ_JAE-x1Cx0UuHVg_jXoPWYWi_nGXcjVSyqDXYLhI&page=1&per_page=2"
+    static func fetchData(api: UnsplashAPI, completion: @escaping (Result<[MainImageDataDTO], NetworkError>) -> Void) {
         
-        let url = URL(string: testUrl)!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+        guard let url = api.generateURL().url else {
+            completion(.failure(.apiError))
+            return
+        }
+        
+        let request = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if error != nil {
@@ -43,8 +39,14 @@ class NetworkManager {
             let jsonDecoder = JSONDecoder()
             
             do {
-                let decodedData = try jsonDecoder.decode([MainImageDataDTO].self, from: data)
-                completion(.success(decodedData))
+                switch api {
+                case .id:
+                    let decodedData = try jsonDecoder.decode(MainImageDataDTO.self, from: data)
+                    completion(.success([decodedData]))
+                case .main, .random:
+                    let decodedData = try jsonDecoder.decode([MainImageDataDTO].self, from: data)
+                    completion(.success(decodedData))
+                }
             } catch {
                 print(NetworkError.JSONDecoderError.localizedDescription)
             }
@@ -55,6 +57,7 @@ class NetworkManager {
 }
 
 enum NetworkError: Error {
+    case apiError
     case defaultsError
     case responseError
     case JSONDecoderError

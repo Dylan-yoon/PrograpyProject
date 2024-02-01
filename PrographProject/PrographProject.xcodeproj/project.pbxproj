@@ -22,6 +22,7 @@
 		F625838D2B6AC383001DC03F /* MainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F625838C2B6AC383001DC03F /* MainSection.swift */; };
 		F62583902B6BB442001DC03F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F625838F2B6BB442001DC03F /* NetworkManager.swift */; };
 		F62583922B6BB4F1001DC03F /* MainImageDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583912B6BB4F1001DC03F /* MainImageDataDTO.swift */; };
+		F62583962B6C1B2A001DC03F /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583952B6C1B2A001DC03F /* UnsplashAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		F625838C2B6AC383001DC03F /* MainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSection.swift; sourceTree = "<group>"; };
 		F625838F2B6BB442001DC03F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F62583912B6BB4F1001DC03F /* MainImageDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainImageDataDTO.swift; sourceTree = "<group>"; };
+		F62583952B6C1B2A001DC03F /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,8 +151,7 @@
 				F62583572B6809D2001DC03F /* RandomPhotoViewController.swift */,
 				F625838E2B6AC65E001DC03F /* Model */,
 				F62583882B6AC20E001DC03F /* Util */,
-				F625838F2B6BB442001DC03F /* NetworkManager.swift */,
-				F62583912B6BB4F1001DC03F /* MainImageDataDTO.swift */,
+				F62583972B6C266B001DC03F /* Network */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -161,6 +162,16 @@
 				F625838C2B6AC383001DC03F /* MainSection.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		F62583972B6C266B001DC03F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				F625838F2B6BB442001DC03F /* NetworkManager.swift */,
+				F62583952B6C1B2A001DC03F /* UnsplashAPI.swift */,
+				F62583912B6BB4F1001DC03F /* MainImageDataDTO.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +299,7 @@
 				F62583422B679E0D001DC03F /* SceneDelegate.swift in Sources */,
 				F625835C2B680E8C001DC03F /* PhotoCell.swift in Sources */,
 				F625838D2B6AC383001DC03F /* MainSection.swift in Sources */,
+				F62583962B6C1B2A001DC03F /* UnsplashAPI.swift in Sources */,
 				F62583562B67E838001DC03F /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
