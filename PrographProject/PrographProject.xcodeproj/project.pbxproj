@@ -27,6 +27,8 @@
 		F625839C2B6C2731001DC03F /* BookMark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F625839A2B6C2731001DC03F /* BookMark.xcdatamodeld */; };
 		F62583A82B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583A62B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift */; };
 		F62583A92B6C31DA001DC03F /* Bookmark+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583A72B6C31DA001DC03F /* Bookmark+CoreDataClass.swift */; };
+		F68068792B6C9E4400EAC09E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68068782B6C9E4400EAC09E /* DetailViewController.swift */; };
+		F680687C2B6CD10900EAC09E /* DetailImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F680687B2B6CD10900EAC09E /* DetailImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		F625839B2B6C2731001DC03F /* BookMark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookMark.xcdatamodel; sourceTree = "<group>"; };
 		F62583A62B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F62583A72B6C31DA001DC03F /* Bookmark+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F68068782B6C9E4400EAC09E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		F680687B2B6CD10900EAC09E /* DetailImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +162,7 @@
 				F62583532B67A122001DC03F /* MainTabbarController.swift */,
 				F625835F2B6917EA001DC03F /* MainView */,
 				F62583572B6809D2001DC03F /* RandomPhotoViewController.swift */,
+				F680687A2B6C9E4C00EAC09E /* DetailView */,
 				F625838E2B6AC65E001DC03F /* Model */,
 				F62583882B6AC20E001DC03F /* Util */,
 				F62583972B6C266B001DC03F /* Network */,
@@ -192,6 +197,15 @@
 				F625839A2B6C2731001DC03F /* BookMark.xcdatamodeld */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		F680687A2B6C9E4C00EAC09E /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				F68068782B6C9E4400EAC09E /* DetailViewController.swift */,
+				F680687B2B6CD10900EAC09E /* DetailImageView.swift */,
+			);
+			path = DetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,6 +323,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F62583872B6AC1DC001DC03F /* UICollectionViewLayout + Extension.swift in Sources */,
+				F680687C2B6CD10900EAC09E /* DetailImageView.swift in Sources */,
+				F68068792B6C9E4400EAC09E /* DetailViewController.swift in Sources */,
 				F62583922B6BB4F1001DC03F /* MainImageDataDTO.swift in Sources */,
 				F62583A92B6C31DA001DC03F /* Bookmark+CoreDataClass.swift in Sources */,
 				F625839C2B6C2731001DC03F /* BookMark.xcdatamodeld in Sources */,
