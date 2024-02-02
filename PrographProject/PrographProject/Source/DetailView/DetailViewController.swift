@@ -24,6 +24,7 @@ class DetailViewController: UIViewController {
         
         label.text = "USER NAME"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .headline)
         label.textColor = .white
         
         return label
@@ -110,6 +111,22 @@ class DetailViewController: UIViewController {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         configureLayout()
         configureButton()
+        
+        cancelButton.addTarget(self, action: #selector(tapCancelButton), for: .touchUpInside)
+        downLoadButton.addTarget(self, action: #selector(tapDownloadButton), for: .touchUpInside)
+        bookMarkButton.addTarget(self, action: #selector(tapBookMarkButton), for: .touchUpInside)
+    }
+    
+    @objc func tapCancelButton() {
+        
+    }
+    
+    @objc func tapDownloadButton() {
+        
+    }
+    
+    @objc func tapBookMarkButton() {
+        
     }
 }
 
@@ -131,7 +148,7 @@ extension DetailViewController {
             
             userNameLabel.topAnchor.constraint(equalTo: cancelButton.topAnchor),
             userNameLabel.leadingAnchor.constraint(equalTo: cancelButton.trailingAnchor, constant: 10),
-            userNameLabel.trailingAnchor.constraint(equalTo: downLoadButton.leadingAnchor, constant: 10),
+            userNameLabel.trailingAnchor.constraint(equalTo: downLoadButton.leadingAnchor, constant: -10),
             userNameLabel.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor),
             
             downLoadButton.topAnchor.constraint(equalTo: cancelButton.topAnchor),
@@ -151,7 +168,7 @@ extension DetailViewController {
             imageContentsView.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 15),
             imageContentsView.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
             imageContentsView.trailingAnchor.constraint(equalTo: margin.trailingAnchor),
-            imageContentsView.bottomAnchor.constraint(equalTo: bottomStackView.topAnchor, constant: -10),
+            imageContentsView.bottomAnchor.constraint(equalTo: bottomStackView.topAnchor, constant: -10)
         ])
         
         // Bottom
