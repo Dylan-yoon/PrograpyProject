@@ -56,6 +56,44 @@ class CoreDataManager {
         }
     }
     
+    func updateData(_ bookmarkData: BookmarkData?) throws {
+        guard let context = appDelegate?.persistentContainer.viewContext else {
+            throw CoreDataError.defaultError
+        }
+        
+        guard let bookmarkData = bookmarkData else {
+            throw CoreDataError.defaultError
+        }
+        
+        guard let id = bookmarkData.id else {
+            throw CoreDataError.defaultError
+        }
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Bookmark")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+        
+        do {
+            let test = try context.fetch(fetchRequest)
+            guard let updatingData = test[0] as? NSManagedObject else { return }
+            
+            updatingData.setValue(bookmarkData.detail, forKey: "detail")
+            updatingData.setValue(bookmarkData.id, forKey: "id")
+            updatingData.setValue(bookmarkData.url, forKey: "url")
+            
+            if context.hasChanges {
+                do {
+                    try context.save()
+                    return
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
     func deleteDate(id: String) throws {
         guard let context = appDelegate?.persistentContainer.viewContext else {
             throw CoreDataError.defaultError
