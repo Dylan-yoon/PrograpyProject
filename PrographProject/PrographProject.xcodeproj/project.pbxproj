@@ -23,6 +23,10 @@
 		F62583902B6BB442001DC03F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F625838F2B6BB442001DC03F /* NetworkManager.swift */; };
 		F62583922B6BB4F1001DC03F /* MainImageDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583912B6BB4F1001DC03F /* MainImageDataDTO.swift */; };
 		F62583962B6C1B2A001DC03F /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583952B6C1B2A001DC03F /* UnsplashAPI.swift */; };
+		F62583992B6C270C001DC03F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583982B6C270C001DC03F /* CoreDataManager.swift */; };
+		F625839C2B6C2731001DC03F /* BookMark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F625839A2B6C2731001DC03F /* BookMark.xcdatamodeld */; };
+		F62583A82B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583A62B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift */; };
+		F62583A92B6C31DA001DC03F /* Bookmark+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583A72B6C31DA001DC03F /* Bookmark+CoreDataClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +50,10 @@
 		F625838F2B6BB442001DC03F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F62583912B6BB4F1001DC03F /* MainImageDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainImageDataDTO.swift; sourceTree = "<group>"; };
 		F62583952B6C1B2A001DC03F /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
+		F62583982B6C270C001DC03F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		F625839B2B6C2731001DC03F /* BookMark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookMark.xcdatamodel; sourceTree = "<group>"; };
+		F62583A62B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F62583A72B6C31DA001DC03F /* Bookmark+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataClass.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +153,7 @@
 		F625838B2B6AC305001DC03F /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				F62583A52B6C31C2001DC03F /* CoreData */,
 				F625838A2B6AC299001DC03F /* Application */,
 				F62583532B67A122001DC03F /* MainTabbarController.swift */,
 				F625835F2B6917EA001DC03F /* MainView */,
@@ -172,6 +181,17 @@
 				F62583912B6BB4F1001DC03F /* MainImageDataDTO.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		F62583A52B6C31C2001DC03F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				F62583A72B6C31DA001DC03F /* Bookmark+CoreDataClass.swift */,
+				F62583A62B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift */,
+				F62583982B6C270C001DC03F /* CoreDataManager.swift */,
+				F625839A2B6C2731001DC03F /* BookMark.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,16 +310,20 @@
 			files = (
 				F62583872B6AC1DC001DC03F /* UICollectionViewLayout + Extension.swift in Sources */,
 				F62583922B6BB4F1001DC03F /* MainImageDataDTO.swift in Sources */,
+				F62583A92B6C31DA001DC03F /* Bookmark+CoreDataClass.swift in Sources */,
+				F625839C2B6C2731001DC03F /* BookMark.xcdatamodeld in Sources */,
 				F62583632B69260C001DC03F /* MainHeaderView.swift in Sources */,
 				F625835E2B691786001DC03F /* MainViewModel.swift in Sources */,
 				F62583402B679E0D001DC03F /* AppDelegate.swift in Sources */,
 				F62583902B6BB442001DC03F /* NetworkManager.swift in Sources */,
+				F62583A82B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift in Sources */,
 				F62583582B6809D2001DC03F /* RandomPhotoViewController.swift in Sources */,
 				F62583542B67A122001DC03F /* MainTabbarController.swift in Sources */,
 				F62583422B679E0D001DC03F /* SceneDelegate.swift in Sources */,
 				F625835C2B680E8C001DC03F /* PhotoCell.swift in Sources */,
 				F625838D2B6AC383001DC03F /* MainSection.swift in Sources */,
 				F62583962B6C1B2A001DC03F /* UnsplashAPI.swift in Sources */,
+				F62583992B6C270C001DC03F /* CoreDataManager.swift in Sources */,
 				F62583562B67E838001DC03F /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -517,6 +541,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F625839A2B6C2731001DC03F /* BookMark.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F625839B2B6C2731001DC03F /* BookMark.xcdatamodel */,
+			);
+			currentVersion = F625839B2B6C2731001DC03F /* BookMark.xcdatamodel */;
+			path = BookMark.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F62583342B679E0D001DC03F /* Project object */;
 }
