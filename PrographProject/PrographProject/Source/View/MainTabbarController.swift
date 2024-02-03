@@ -30,14 +30,14 @@ final class MainTabbarController: UITabBarController {
         mainViewController.tabBarItem.image = UIImage(named: mainTabImageName)
         secondViewController.tabBarItem.image = UIImage(named: secondTabImageName)
         tabBar.backgroundColor = .label
-        tabBar.tintColor = .systemBackground
+        tabBar.tintColor = .white
         tabBar.unselectedItemTintColor = .systemGray
     }
     
     private func ConfigureTabbarAppearance() {
         let tabbarAppearance = UITabBarAppearance()
         
-        tabbarAppearance.backgroundColor = .label
+        tabbarAppearance.backgroundColor = .black
         tabBar.standardAppearance = tabbarAppearance
         tabBar.scrollEdgeAppearance = tabbarAppearance
     }
