@@ -13,12 +13,22 @@ struct MainImageDataDTO: Decodable {
     let height: Int
     let description: String?
     let urls: Urls
+    let user: User
 
     enum CodingKeys: String, CodingKey {
         case id
         case width, height
         case description
         case urls
+        case user
+    }
+}
+
+struct User: Codable {
+    let username: String
+    
+    enum CodingKeys: String, CodingKey {
+        case username
     }
 }
 

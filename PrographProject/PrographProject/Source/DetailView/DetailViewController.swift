@@ -7,7 +7,20 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+enum DetialType: String {
+    case mainBookmark
+    case mainRecent
+    case cardView
+}
+
+final class DetailViewController: UIViewController {
+    
+    private var detailType: DetialType
+    private var defaultID: String
+    
+    private var imageData: ImageDatas?
+    
+    private var activityIndicator = UIActivityIndicatorView()
     
     private let cancelButton: UIButton = {
         let button = UIButton()
@@ -20,7 +33,7 @@ class DetailViewController: UIViewController {
     }()
     
     private let userNameLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         
         label.text = "USER NAME"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +56,7 @@ class DetailViewController: UIViewController {
     private let bookMarkButton: UIButton = {
         let button = UIButton()
         
+        button.isOpaque = true
         button.setImage(.bookmark.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -105,10 +119,24 @@ class DetailViewController: UIViewController {
         return stackView
     }()
     
+    init(type: DetialType, id: String) {
+        self.detailType = type
+        self.defaultID = id
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.black.withAlphaComponent(0.92)
+        activityIndicator.startAnimating()
+        fetchDataForID()
+        configureInitBookMarkButton()
+        
         configureLayout()
         configureButton()
         
@@ -117,21 +145,22 @@ class DetailViewController: UIViewController {
         bookMarkButton.addTarget(self, action: #selector(tapBookMarkButton), for: .touchUpInside)
     }
     
-    @objc func tapCancelButton() {
+    @objc private func tapCancelButton() {
         self.dismiss(animated: true)
     }
     
-    @objc func tapDownloadButton() {
+    @objc private func tapDownloadButton() {
         
     }
     
-    @objc func tapBookMarkButton() {
+    @objc private func tapBookMarkButton() {
         
     }
 }
 
 extension DetailViewController {
     private func configureLayout() {
+        
         [cancelButton, userNameLabel, downLoadButton, bookMarkButton, imageContentsView, bottomStackView].forEach(view.addSubview(_:))
         [titleLabel, descriptionLabel, tagLabel].forEach(bottomStackView.addArrangedSubview(_:))
         
@@ -177,10 +206,62 @@ extension DetailViewController {
             bottomStackView.trailingAnchor.constraint(equalTo: margin.trailingAnchor),
             bottomStackView.bottomAnchor.constraint(equalTo: margin.bottomAnchor)
         ])
+        
+        //activityIndicator
+        imageContentsView.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
-    func configureButton() {
+    private func configureButton() {
         cancelButton.layer.cornerRadius = view.frame.size.height/40
     }
-}
+    
+    private func configureInitBookMarkButton() {
+        switch detailType {
+        case .mainBookmark:
+            bookMarkButton.layer.opacity = 0.3
+        case .mainRecent:
+            bookMarkButton.layer.opacity = 1
+        case .cardView:
+            bookMarkButton.layer.opacity = 0.3
+        }
+    }
+    
+    private func fetchDataForID() {
+        NetworkManager.fetchData(api: .id(id: defaultID)) { result in
+            switch result {
+            case .success(let data):
+                guard let data = data.first else { return }
+                
+                NetworkManager.fetchImage(urlString: data.urls.regular) { result in
+                    switch result {
+                    case .success(let image):
+                        self.imageData = .init(id: data.id, description: data.description, urlString: data.urls.regular, uiimage: image, userName: data.user.username)
+                        
+                        DispatchQueue.main.async {
+                            self.configureViewData()
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                }
 
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func configureViewData() {
+        // 인디케이터 종료
+        activityIndicator.stopAnimating()
+        
+        guard let imageData = imageData else { return }
+        userNameLabel.text = imageData.userName
+        imageContentsView.changeImage(uiimage: imageData.uiimage)
+        guard let description = imageData.description else { return }
+        descriptionLabel.text = description
+    }
+}

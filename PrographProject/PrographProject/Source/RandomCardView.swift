@@ -8,12 +8,12 @@
 import UIKit
 
 protocol RandomCardViewDelegate: AnyObject {
-    func infoButtonTapped()
+    func infoButtonTapped(id: String)
 }
 
 class RandomCardView: UIView, UIGestureRecognizerDelegate {
     
-    private var allData: [CardDatas] = []
+    private var allData: [ImageDatas] = []
     private var index: Int = 0
     
     weak var delegate: RandomCardViewDelegate?
@@ -146,10 +146,11 @@ extension RandomCardView {
                     NetworkManager.fetchImage(urlString: data.urls.regular) { result in
                         switch result {
                         case .success(let imageData):
-                            let processedData = CardDatas(id: data.id,
+                            let processedData = ImageDatas(id: data.id,
                                                           description: data.description,
                                                           urlString: data.urls.regular,
-                                                          uiimage: imageData
+                                                           uiimage: imageData,
+                                                           userName: data.user.username
                             )
                             self.allData.append(processedData)
                         case .failure(let error):
@@ -184,15 +185,16 @@ extension RandomCardView {
     
     @objc private func tapInfoButton() {
         // 데이터 전송
-        delegate?.infoButtonTapped()
+        delegate?.infoButtonTapped(id: allData[index].id)
     }
     
     private func nextCard() {
+        index += 1
         if index > allData.count - 4 {
             print(self.allData.count)
             fetchFiveData()
         }
-        index += 1
+        
     }
     
     private func addBookmark() {
@@ -237,9 +239,10 @@ extension RandomCardView {
     }
 }
 
-struct CardDatas {
+struct ImageDatas {
     let id: String
     let description: String?
     let urlString: String
     let uiimage: UIImage
+    let userName: String
 }

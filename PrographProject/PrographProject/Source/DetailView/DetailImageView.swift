@@ -19,9 +19,6 @@ class DetailImageView: UIView {
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        // TODO: 기본이미지 삭제
-        imageView.image = UIImage(named: ["praha", "thumbnail", "thumbnail-2", "thumbnail-3", "praha2"].randomElement()!)
-        
         return imageView
     }()
     
@@ -48,9 +45,8 @@ class DetailImageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func changeImage(name: String) {
-        let a = ["praha", "thumbnail", "praha3", "praha2"]
-        imageView.image = UIImage(named: a.randomElement()!)
+    func changeImage(uiimage: UIImage) {
+        imageView.image = uiimage
     }
     
     func configureContents() {

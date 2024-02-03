@@ -57,9 +57,7 @@ class RandomPhotoViewController: UIViewController {
 }
 
 extension RandomPhotoViewController: RandomCardViewDelegate {
-    
-    func infoButtonTapped() {
-        print("here")
-        present(DetailViewController(), animated: true)
+    func infoButtonTapped(id: String) {
+        present(DetailViewController(type: .cardView, id: id), animated: true)
     }
 }
