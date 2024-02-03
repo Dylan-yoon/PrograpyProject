@@ -15,10 +15,10 @@ final class PhotoCell: UICollectionViewCell {
     let imageView: UIImageView = {
         let imageView = UIImageView()
         
-        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 10
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
     }()
@@ -27,8 +27,8 @@ final class PhotoCell: UICollectionViewCell {
         let label = UILabel()
         
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.numberOfLines = 2
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -46,11 +46,13 @@ final class PhotoCell: UICollectionViewCell {
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
             
+        NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
         
         self.addSubview(activityIndicator)

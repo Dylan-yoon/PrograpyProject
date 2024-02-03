@@ -25,14 +25,7 @@ class DetailImageView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.addSubview(imageView)
-        
-        NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            imageView.topAnchor.constraint(equalTo: self.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        ])
+        configureLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -57,5 +50,16 @@ class DetailImageView: UIView {
         }
         
         layoutIfNeeded()
+    }
+    
+    private func configureLayout() {
+        self.addSubview(imageView)
+        
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: self.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
     }
 }

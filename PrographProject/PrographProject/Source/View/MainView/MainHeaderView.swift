@@ -15,7 +15,6 @@ final class MainHeaderView: UICollectionReusableView {
         
         label.text = "HEADER"
         label.font = .preferredFont(forTextStyle: .headline)
-        
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label

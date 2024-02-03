@@ -34,6 +34,7 @@ class RandomPhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        
         cardView.delegate = self
         
         configureLayout()

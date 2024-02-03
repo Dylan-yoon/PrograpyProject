@@ -16,11 +16,12 @@ extension UICollectionViewLayout {
         let section: NSCollectionLayoutSection
         
         if sectionKind == .bookmark {
-            
+            // Item
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
             
+            // Group
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .fractionalHeight(0.2))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             
@@ -40,16 +41,21 @@ extension UICollectionViewLayout {
             section.boundarySupplementaryItems = [header]
             
         } else if sectionKind == .recents {
-            
+            // Item
             let leadingItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
             let leadingItem = NSCollectionLayoutItem(layoutSize: leadingItemSize)
             leadingItem.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+            
+            // Group
             let leadingGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
             let leadingGroup = NSCollectionLayoutGroup.horizontal(layoutSize: leadingGroupSize, subitems: [leadingItem])
             
+            // Item
             let trailingItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
             let trailingItem = NSCollectionLayoutItem(layoutSize: trailingItemSize)
             trailingItem.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+            
+            // Group
             let trailingGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
             let trailingGroup = NSCollectionLayoutGroup.horizontal(layoutSize: trailingGroupSize, subitems: [trailingItem])
             

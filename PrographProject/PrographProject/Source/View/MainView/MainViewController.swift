@@ -40,7 +40,6 @@ final class MainViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
-        
         configureLayout()
         configureCollectionView()
         configureDataSource()
@@ -52,11 +51,14 @@ final class MainViewController: UIViewController {
     private func configureCollectionView() {
         self.collectionView.delegate = self
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.id)
-        collectionView.register(MainHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainHeaderView.id)
+        collectionView.register(MainHeaderView.self, 
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: MainHeaderView.id)
     }
     
     private func configureDataSource() {
-        self.dataSource = UICollectionViewDiffableDataSource<MainSection, ImageData>(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+        self.dataSource = UICollectionViewDiffableDataSource<MainSection, ImageData>(collectionView: self.collectionView,
+                                                                                     cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.id, for: indexPath) as! PhotoCell
             
             let image = itemIdentifier.uiimage ?? UIImage(resource: .praha)
@@ -125,8 +127,6 @@ final class MainViewController: UIViewController {
                                                 userName: bookmarkData.username)],
                                      toSection: .bookmark)
             }
-            
-            print(snapshot.itemIdentifiers)
             dataSource?.apply(snapshot)
         case .failure(let error):
             print(error.localizedDescription)
@@ -156,16 +156,14 @@ final class MainViewController: UIViewController {
                                     fatalError("SnapShot Binding Error _ Fetch Data")
                                 }
                                 
-                                
                                 snapshot.appendItems([processedData], toSection: .recents)
                                 self.dataSource?.apply(snapshot)
                             }
-
+                            
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
                     }
-                    
                 }
             case .failure(_):
                 fatalError("CollectionView Fetch ERROR")
@@ -182,7 +180,9 @@ extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainHeaderView.id, for: indexPath) as! MainHeaderView
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                                         withReuseIdentifier: MainHeaderView.id,
+                                                                         for: indexPath) as! MainHeaderView
             return header
         default:
             return UICollectionReusableView()
@@ -237,6 +237,7 @@ extension MainViewController {
     }
 }
 
+//MARK: - Delegate
 extension MainViewController: BookMarkConformable {
     func tapBookmark(id: String, isDelete: Bool, imageData: ImageData) {
         if isDelete {

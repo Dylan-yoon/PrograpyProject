@@ -28,8 +28,8 @@ final class DetailViewController: UIViewController {
         let button = UIButton()
         
         button.setImage(.x, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .white
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
@@ -38,9 +38,9 @@ final class DetailViewController: UIViewController {
         let label = UILabel()
         
         label.text = "USER NAME"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .headline)
         label.textColor = .white
+        label.font = .preferredFont(forTextStyle: .headline)
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -48,9 +48,9 @@ final class DetailViewController: UIViewController {
     private let downLoadButton: UIButton = {
         let button = UIButton()
         
-        button.setImage(.download.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(.download.withRenderingMode(.alwaysTemplate), for: .normal)
         
         return button
     }()
@@ -59,9 +59,9 @@ final class DetailViewController: UIViewController {
         let button = UIButton()
         
         button.isOpaque = true
-        button.setImage(.bookmark.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(.bookmark.withRenderingMode(.alwaysTemplate), for: .normal)
         
         return button
     }()
@@ -78,9 +78,9 @@ final class DetailViewController: UIViewController {
         let label = UILabel()
         
         label.text = "TITLE"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .title3)
         label.textColor = .white
+        label.font = .preferredFont(forTextStyle: .title3)
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -89,10 +89,10 @@ final class DetailViewController: UIViewController {
         let label = UILabel()
         
         label.numberOfLines = 2
-        label.text = "DESCRIPTION DESCRIPTION DESCRIPTION prahaDESCRIPTION prahaDESCRIPTION "
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .caption1)
         label.textColor = .white
+        label.font = .preferredFont(forTextStyle: .caption1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "DESCRIPTION DESCRIPTION DESCRIPTION prahaDESCRIPTION prahaDESCRIPTION "
         
         return label
     }()
@@ -100,10 +100,10 @@ final class DetailViewController: UIViewController {
     private let tagLabel: UILabel = {
         let label = UILabel()
         
+        label.textColor = .white
         label.text = "#TAG #TAG"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .caption1)
-        label.textColor = .white
         
         return label
     }()
@@ -115,7 +115,6 @@ final class DetailViewController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fillProportionally
-        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -152,63 +151,19 @@ final class DetailViewController: UIViewController {
         configureLayout()
         configureButton()
         
-        cancelButton.addTarget(self, action: #selector(tapCancelButton), for: .touchUpInside)
-        downLoadButton.addTarget(self, action: #selector(tapDownloadButton), for: .touchUpInside)
-        bookMarkButton.addTarget(self, action: #selector(tapBookMarkButton), for: .touchUpInside)
-    }
-    
-    @objc private func tapCancelButton() {
-        self.dismiss(animated: true)
-    }
-    
-    @objc private func tapDownloadButton() {
-        
-    }
-    
-    @objc private func tapBookMarkButton() {
-        guard let imageData = imageData else {
-            return
-        }
-        
-        if isBookmarked {
-
-            do {
-                try CoreDataManager.shared.deleteDate(id: imageData.id)
-            } catch {
-                debugPrint(error.localizedDescription)
-            }
-        } else {
-
-            let data = imageData.uiimage?.pngData()
-            
-            let bookmarkdata = BookmarkData(detail: imageData.description,
-                                            id: imageData.id,
-                                            url: imageData.urlString,
-                                            username: imageData.userName,
-                                            imageData: data)
-            do {
-                try CoreDataManager.shared.saveData(bookmarkdata)
-            } catch {
-                print(error.localizedDescription)
-            }
-            
-        }
-        
-        delegate?.tapBookmark(id: imageData.id, isDelete: isBookmarked, imageData: imageData)
-        isBookmarked.toggle()
-        configureInitBookMarkButton()
+        setAddTarget()
     }
 }
 
+//MARK: -Configure Layout
 extension DetailViewController {
+    
     private func configureLayout() {
-        
         [cancelButton, userNameLabel, downLoadButton, bookMarkButton, imageContentsView, bottomStackView].forEach(view.addSubview(_:))
         [titleLabel, descriptionLabel, tagLabel].forEach(bottomStackView.addArrangedSubview(_:))
         
-        view.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
-        
         let margin = view.layoutMarginsGuide
+        view.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
         
         // TOP
         NSLayoutConstraint.activate([
@@ -216,17 +171,20 @@ extension DetailViewController {
             cancelButton.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
             cancelButton.widthAnchor.constraint(equalTo: cancelButton.heightAnchor),
             cancelButton.heightAnchor.constraint(equalToConstant: view.frame.height/20),
-            
+        ])
+        NSLayoutConstraint.activate([
             userNameLabel.topAnchor.constraint(equalTo: cancelButton.topAnchor),
             userNameLabel.leadingAnchor.constraint(equalTo: cancelButton.trailingAnchor, constant: 10),
             userNameLabel.trailingAnchor.constraint(equalTo: downLoadButton.leadingAnchor, constant: -10),
             userNameLabel.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor),
-            
+        ])
+        NSLayoutConstraint.activate([
             downLoadButton.topAnchor.constraint(equalTo: cancelButton.topAnchor),
             downLoadButton.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor),
             downLoadButton.trailingAnchor.constraint(equalTo: bookMarkButton.leadingAnchor, constant: -10),
             downLoadButton.widthAnchor.constraint(equalTo: downLoadButton.heightAnchor),
-            
+        ])
+        NSLayoutConstraint.activate([
             bookMarkButton.topAnchor.constraint(equalTo: cancelButton.topAnchor),
             bookMarkButton.trailingAnchor.constraint(equalTo: margin.trailingAnchor, constant: -10),
             bookMarkButton.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor),
@@ -249,7 +207,7 @@ extension DetailViewController {
             bottomStackView.bottomAnchor.constraint(equalTo: margin.bottomAnchor)
         ])
         
-        //activityIndicator
+        // ActivityIndicator
         imageContentsView.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -267,6 +225,10 @@ extension DetailViewController {
             bookMarkButton.layer.opacity = 1
         }
     }
+}
+
+// MARK: - FetchMethod
+extension DetailViewController {
     
     private func fetchDataForID() {
         NetworkManager.fetchData(api: .id(id: defaultID)) { result in
@@ -286,7 +248,7 @@ extension DetailViewController {
                         print(error.localizedDescription)
                     }
                 }
-
+                
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -297,10 +259,63 @@ extension DetailViewController {
         // 인디케이터 종료
         activityIndicator.stopAnimating()
         
-        guard let imageData = imageData else { return }
+        guard let imageData = imageData,
+              let description = imageData.description else { return }
         userNameLabel.text = imageData.userName
         imageContentsView.changeImage(uiimage: imageData.uiimage ?? UIImage(resource: .praha))
-        guard let description = imageData.description else { return }
+        
         descriptionLabel.text = description
+    }
+}
+
+//MARK: - Target Method
+extension DetailViewController {
+    
+    private func setAddTarget() {
+        cancelButton.addTarget(self, action: #selector(tapCancelButton), for: .touchUpInside)
+        downLoadButton.addTarget(self, action: #selector(tapDownloadButton), for: .touchUpInside)
+        bookMarkButton.addTarget(self, action: #selector(tapBookMarkButton), for: .touchUpInside)
+    }
+    
+    @objc private func tapCancelButton() {
+        self.dismiss(animated: true)
+    }
+    
+    @objc private func tapDownloadButton() {
+        
+    }
+    
+    @objc private func tapBookMarkButton() {
+        guard let imageData = imageData else {
+            return
+        }
+        
+        if isBookmarked {
+            
+            do {
+                try CoreDataManager.shared.deleteDate(id: imageData.id)
+            } catch {
+                debugPrint(error.localizedDescription)
+            }
+        } else {
+            
+            let data = imageData.uiimage?.pngData()
+            
+            let bookmarkdata = BookmarkData(detail: imageData.description,
+                                            id: imageData.id,
+                                            url: imageData.urlString,
+                                            username: imageData.userName,
+                                            imageData: data)
+            do {
+                try CoreDataManager.shared.saveData(bookmarkdata)
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+        }
+        
+        delegate?.tapBookmark(id: imageData.id, isDelete: isBookmarked, imageData: imageData)
+        isBookmarked.toggle()
+        configureInitBookMarkButton()
     }
 }
