@@ -36,7 +36,7 @@ class CoreDataManager {
         return .failure(.defaultError)
     }
     
-    func saveData(_ bookmarkData: BookmarkData, completion: @escaping () -> Void) throws {
+    func saveData(_ bookmarkData: BookmarkData) throws {
         guard let context = appDelegate?.persistentContainer.viewContext else {
             throw CoreDataError.defaultError
         }
@@ -49,7 +49,6 @@ class CoreDataManager {
             info.setValue(bookmarkData.url, forKey: "url")
             do {
                 try context.save()
-                completion()
             } catch {
                 print(error.localizedDescription)
             }
