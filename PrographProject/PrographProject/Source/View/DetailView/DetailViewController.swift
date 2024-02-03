@@ -18,6 +18,9 @@ final class DetailViewController: UIViewController {
     private var detailType: DetialType
     private var imageData: ImageData?
     private var defaultID: String
+    private var isBookmarked: Bool
+    
+    weak var delegate: BookMarkConformable?
     
     private var activityIndicator = UIActivityIndicatorView()
     
@@ -121,6 +124,16 @@ final class DetailViewController: UIViewController {
     init(type: DetialType, id: String) {
         self.detailType = type
         self.defaultID = id
+        
+        switch detailType {
+        case .mainBookmark:
+            self.isBookmarked = true
+        case .mainRecent:
+            self.isBookmarked = false
+        case .cardView:
+            self.isBookmarked = false
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -153,7 +166,37 @@ final class DetailViewController: UIViewController {
     }
     
     @objc private func tapBookMarkButton() {
+        guard let imageData = imageData else {
+            return
+        }
         
+        if isBookmarked {
+
+            do {
+                try CoreDataManager.shared.deleteDate(id: imageData.id)
+            } catch {
+                debugPrint(error.localizedDescription)
+            }
+        } else {
+
+            let data = imageData.uiimage?.pngData()
+            
+            let bookmarkdata = BookmarkData(detail: imageData.description,
+                                            id: imageData.id,
+                                            url: imageData.urlString,
+                                            username: imageData.userName,
+                                            imageData: data)
+            do {
+                try CoreDataManager.shared.saveData(bookmarkdata)
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+        }
+        
+        delegate?.tapBookmark(id: imageData.id, isDelete: isBookmarked, imageData: imageData)
+        isBookmarked.toggle()
+        configureInitBookMarkButton()
     }
 }
 
@@ -218,13 +261,10 @@ extension DetailViewController {
     }
     
     private func configureInitBookMarkButton() {
-        switch detailType {
-        case .mainBookmark:
+        if isBookmarked {
             bookMarkButton.layer.opacity = 0.3
-        case .mainRecent:
+        } else {
             bookMarkButton.layer.opacity = 1
-        case .cardView:
-            bookMarkButton.layer.opacity = 0.3
         }
     }
     

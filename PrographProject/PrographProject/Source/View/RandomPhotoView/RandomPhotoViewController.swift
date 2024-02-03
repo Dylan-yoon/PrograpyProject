@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol RandomCardViewDelegate: AnyObject {
+    func infoButtonTapped(id: String)
+}
+
 class RandomPhotoViewController: UIViewController {
     
     private let logoView: UIImageView = {

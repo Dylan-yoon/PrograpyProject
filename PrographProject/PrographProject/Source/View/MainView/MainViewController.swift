@@ -7,9 +7,12 @@
 
 import UIKit
 
+protocol BookMarkConformable: AnyObject {
+    func tapBookmark(id: String, isDelete: Bool, imageData: ImageData)
+}
+
 final class MainViewController: UIViewController {
     
-    //    private let viewModel = MainViewModel()
     private var dataSource: UICollectionViewDiffableDataSource<MainSection, ImageData>?
     private var page = 0
     
@@ -36,6 +39,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+        
         
         configureLayout()
         configureCollectionView()
@@ -190,10 +194,14 @@ extension MainViewController: UICollectionViewDelegate {
         
         if indexPath.section == 0 {
             let imageData = snapshot.itemIdentifiers(inSection: .bookmark)
-            present(DetailViewController(type: .mainBookmark, id: imageData[indexPath.row].id), animated: true)
+            let detilViewController = DetailViewController(type: .mainBookmark, id: imageData[indexPath.row].id)
+            detilViewController.delegate = self
+            present(detilViewController, animated: true)
         } else {
             let imageData = snapshot.itemIdentifiers(inSection: .recents)
-            present(DetailViewController(type: .mainRecent, id: imageData[indexPath.row].id), animated: true)
+            let detilViewController = DetailViewController(type: .mainRecent, id: imageData[indexPath.row].id)
+            detilViewController.delegate = self
+            present(detilViewController, animated: true)
         }
     }
 }
@@ -226,5 +234,20 @@ extension MainViewController {
         ])
         
         logoView.setContentHuggingPriority(.required, for: .vertical)
+    }
+}
+
+extension MainViewController: BookMarkConformable {
+    func tapBookmark(id: String, isDelete: Bool, imageData: ImageData) {
+        if isDelete {
+            guard var snapshot = dataSource?.snapshot() else { return }
+            snapshot.deleteItems([imageData])
+            
+            dataSource?.apply(snapshot)
+        } else {
+            guard var snapshot = dataSource?.snapshot() else { return }
+            snapshot.appendItems([imageData], toSection: .bookmark)
+            dataSource?.apply(snapshot)
+        }
     }
 }

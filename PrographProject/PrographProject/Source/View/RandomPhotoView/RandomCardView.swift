@@ -7,9 +7,6 @@
 
 import UIKit
 
-protocol RandomCardViewDelegate: AnyObject {
-    func infoButtonTapped(id: String)
-}
 
 final class RandomCardView: UIView, UIGestureRecognizerDelegate {
     

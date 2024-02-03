@@ -73,45 +73,9 @@ class NetworkManager {
                 print("Invalid image data or unable to create UIImage.")
                 return
             }
-            print(image)
             completion(.success(image))
         }.resume()
     }
-    
-//    static func fetchImages(imageCount: Int, completion: @escaping (Result<([UIImage]), NetworkError>) -> Void) {
-//        let url = UnsplashAPI.random(count: imageCount)
-//        
-//        fetchData(api: url) { result in
-//            switch result {
-//            case .success(let datas):
-//                
-//                var imageDatas = [UIImage]()
-//                
-//                for data in datas {
-//                    guard let imageURL = URL(string: data.urls.regular) else { return }
-//                    
-//                    URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
-//                        if let error = error {
-//                            debugPrint("Error downloading image: \(error.localizedDescription)")
-//                            return
-//                        }
-//
-//                        guard let data = data, let image = UIImage(data: data) else {
-//                            print("Invalid image data or unable to create UIImage.")
-////                            completion(.failure(.getDataError))
-//                            return
-//                        }
-//                        
-//                        imageDatas.append(image)
-//                    }.resume()
-//                }
-//                
-//                completion(.success(imageDatas))
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
 }
 
 enum NetworkError: Error {

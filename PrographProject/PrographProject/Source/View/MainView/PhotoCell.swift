@@ -10,13 +10,14 @@ import UIKit
 final class PhotoCell: UICollectionViewCell {
     static let id = "PhotoCell"
     
+    private var activityIndicator = UIActivityIndicatorView()
+    
     let imageView: UIImageView = {
         let imageView = UIImageView()
         
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.backgroundColor = .systemBlue
         imageView.layer.cornerRadius = 10
         
         return imageView
@@ -36,6 +37,8 @@ final class PhotoCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        activityIndicator.startAnimating()
+        
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         
@@ -49,6 +52,11 @@ final class PhotoCell: UICollectionViewCell {
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
         ])
+        
+        self.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,5 +66,6 @@ final class PhotoCell: UICollectionViewCell {
     func configure(with image: UIImage, title: String) {
         imageView.image = image
         titleLabel.text = title
+        activityIndicator.stopAnimating()
     }
 }
