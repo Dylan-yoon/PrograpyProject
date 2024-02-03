@@ -9,13 +9,14 @@ import UIKit
 
 class RandomCardView: UIView, UIGestureRecognizerDelegate {
     
-    var color: [UIColor] = [.black, .white, .lightGray, .blue, .systemMint]
-    var index: Int = 2
+    var imageViewData: [String] = ["thumbnail","praha","thumbnail-2","thumbnail-3", "praha2", "praha3"]
+    var index: Int = -1
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         
         imageView.image = UIImage(named: "praha")
+        imageView.backgroundColor = .black
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 8
@@ -85,7 +86,7 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
     }
     
     private func configureView() {
-        self.backgroundColor = .black
+        self.backgroundColor = .white
         self.layer.shadowColor = UIColor.lightGray.cgColor
         self.layer.shadowOpacity = 0.5
         self.layer.cornerRadius = 12
@@ -126,21 +127,38 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
 extension RandomCardView {
     
     private func gesture() {
-        let swipeRightGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight))
+        let swipeRightGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeftToRight))
         swipeRightGestureRecognizer.direction = .right
         self.addGestureRecognizer(swipeRightGestureRecognizer)
         
-        let swipeLeftGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft))
+        let swipeLeftGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeRightToLeft))
         swipeLeftGestureRecognizer.direction = .left
         self.addGestureRecognizer(swipeLeftGestureRecognizer)
     }
     
-    @objc func handleSwipeRight() {
+    @objc func swipeLeftToRight() {
+        if index > 4 {
+            index = 0
+        } else {
+            index += 1
+        }
+        
+        UIView.transition(with: self, duration: 1,options: .transitionFlipFromLeft) {
+            self.imageView.image = UIImage(named: self.imageViewData[self.index])
+        }
         
         layoutIfNeeded()
     }
     
-    @objc func handleSwipeLeft() {
+    @objc func swipeRightToLeft() {
+        if index > 4 {
+            index = 0
+        } else {
+            index += 1
+        }
+        UIView.transition(with: self, duration: 1,options: .transitionFlipFromRight) {
+            self.imageView.image = UIImage(named: self.imageViewData[self.index])
+        }
         
         layoutIfNeeded()
     }
