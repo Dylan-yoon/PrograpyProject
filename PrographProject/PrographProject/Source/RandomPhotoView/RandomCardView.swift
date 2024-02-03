@@ -13,7 +13,7 @@ protocol RandomCardViewDelegate: AnyObject {
 
 class RandomCardView: UIView, UIGestureRecognizerDelegate {
     
-    private var allData: [ImageDatas] = []
+    private var allData: [ImageData] = []
     private var index: Int = 0
     
     weak var delegate: RandomCardViewDelegate?
@@ -87,7 +87,7 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
         addGesture()
         addTargetButtons()
         
-        fetchFiveData()
+        inins()
     }
     
     required init?(coder: NSCoder) {
@@ -135,8 +135,14 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
 
 extension RandomCardView {
     
-    private func fetchFiveData() {
-        let api = UnsplashAPI.random(count: 5)
+    private func inins() {
+        fetchFiveData(count: 1) {
+            self.imageView.image = self.allData.first?.uiimage
+        }
+    }
+    
+    private func fetchFiveData(count: Int ,completion: @escaping () -> Void) {
+        let api = UnsplashAPI.random(count: count)
         
         NetworkManager.fetchData(api: api) { result in
             switch result {
@@ -146,13 +152,14 @@ extension RandomCardView {
                     NetworkManager.fetchImage(urlString: data.urls.regular) { result in
                         switch result {
                         case .success(let imageData):
-                            let processedData = ImageDatas(id: data.id,
+                            let processedData = ImageData(id: data.id,
                                                           description: data.description,
                                                           urlString: data.urls.regular,
                                                            uiimage: imageData,
                                                            userName: data.user.username
                             )
                             self.allData.append(processedData)
+                            completion()
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
@@ -191,14 +198,21 @@ extension RandomCardView {
     private func nextCard() {
         index += 1
         if index > allData.count - 4 {
-            print(self.allData.count)
-            fetchFiveData()
+            fetchFiveData(count: 5) {}
         }
-        
     }
     
     private func addBookmark() {
-        
+        do {
+            try CoreDataManager.shared.saveData(
+                BookmarkData(
+                    detail: allData[self.index].description,
+                    id: allData[self.index].id,
+                    url: "")
+            )
+        } catch {
+            fatalError("CoreData Save Error")
+        }
     }
 }
 
@@ -214,11 +228,12 @@ extension RandomCardView {
         self.addGestureRecognizer(swipeLeftGestureRecognizer)
     }
     
-    @objc func swipeLeftToRight() {
+    @objc private func swipeLeftToRight() {
+        addBookmark()
         leftToRightAnimation()
     }
     
-    @objc func swipeRightToLeft() {
+    @objc private func swipeRightToLeft() {
         rightToLeftAnimation()
     }
     
@@ -237,12 +252,4 @@ extension RandomCardView {
             self.imageView.image = self.allData[self.index].uiimage
         }
     }
-}
-
-struct ImageDatas {
-    let id: String
-    let description: String?
-    let urlString: String
-    let uiimage: UIImage
-    let userName: String
 }

@@ -16,9 +16,8 @@ enum DetialType: String {
 final class DetailViewController: UIViewController {
     
     private var detailType: DetialType
+    private var imageData: ImageData?
     private var defaultID: String
-    
-    private var imageData: ImageDatas?
     
     private var activityIndicator = UIActivityIndicatorView()
     

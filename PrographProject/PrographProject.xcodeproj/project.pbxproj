@@ -30,6 +30,7 @@
 		F68068792B6C9E4400EAC09E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68068782B6C9E4400EAC09E /* DetailViewController.swift */; };
 		F680687C2B6CD10900EAC09E /* DetailImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F680687B2B6CD10900EAC09E /* DetailImageView.swift */; };
 		F68236332B6DFADB00BA8C32 /* RandomCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68236322B6DFADB00BA8C32 /* RandomCardView.swift */; };
+		F68236362B6E791200BA8C32 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68236352B6E791200BA8C32 /* ImageData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		F68068782B6C9E4400EAC09E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F680687B2B6CD10900EAC09E /* DetailImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageView.swift; sourceTree = "<group>"; };
 		F68236322B6DFADB00BA8C32 /* RandomCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCardView.swift; sourceTree = "<group>"; };
+		F68236352B6E791200BA8C32 /* ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,8 +165,7 @@
 				F625838A2B6AC299001DC03F /* Application */,
 				F62583532B67A122001DC03F /* MainTabbarController.swift */,
 				F625835F2B6917EA001DC03F /* MainView */,
-				F62583572B6809D2001DC03F /* RandomPhotoViewController.swift */,
-				F68236322B6DFADB00BA8C32 /* RandomCardView.swift */,
+				F68236342B6E769E00BA8C32 /* RandomPhotoView */,
 				F680687A2B6C9E4C00EAC09E /* DetailView */,
 				F625838E2B6AC65E001DC03F /* Model */,
 				F62583882B6AC20E001DC03F /* Util */,
@@ -176,6 +177,7 @@
 		F625838E2B6AC65E001DC03F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F68236352B6E791200BA8C32 /* ImageData.swift */,
 				F625838C2B6AC383001DC03F /* MainSection.swift */,
 			);
 			path = Model;
@@ -209,6 +211,15 @@
 				F680687B2B6CD10900EAC09E /* DetailImageView.swift */,
 			);
 			path = DetailView;
+			sourceTree = "<group>";
+		};
+		F68236342B6E769E00BA8C32 /* RandomPhotoView */ = {
+			isa = PBXGroup;
+			children = (
+				F62583572B6809D2001DC03F /* RandomPhotoViewController.swift */,
+				F68236322B6DFADB00BA8C32 /* RandomCardView.swift */,
+			);
+			path = RandomPhotoView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +356,7 @@
 				F68236332B6DFADB00BA8C32 /* RandomCardView.swift in Sources */,
 				F62583992B6C270C001DC03F /* CoreDataManager.swift in Sources */,
 				F62583562B67E838001DC03F /* MainViewController.swift in Sources */,
+				F68236362B6E791200BA8C32 /* ImageData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
