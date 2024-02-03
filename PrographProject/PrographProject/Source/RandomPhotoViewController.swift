@@ -19,7 +19,7 @@ class RandomPhotoViewController: UIViewController {
         return view
     }()
     
-    let cardview: RandomCardView = {
+    let cardView: RandomCardView = {
         let card = RandomCardView()
         
         card.translatesAutoresizingMaskIntoConstraints = false
@@ -30,21 +30,26 @@ class RandomPhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        cardView.delegate = self
         
-        cardview.delegate = self
-        
+        configureLayout()
+    }
+    
+    private func configureLayout() {
         view.addSubview(logoView)
-        view.addSubview(cardview)
+        view.addSubview(cardView)
         
         NSLayoutConstraint.activate([
             logoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             logoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            logoView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            
-            cardview.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: 25),
-            cardview.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            cardview.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            cardview.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
+            logoView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            cardView.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: 25),
+            cardView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            cardView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            cardView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
         
         logoView.setContentHuggingPriority(.required, for: .vertical)
@@ -52,6 +57,7 @@ class RandomPhotoViewController: UIViewController {
 }
 
 extension RandomPhotoViewController: RandomCardViewDelegate {
+    
     func infoButtonTapped() {
         print("here")
         present(DetailViewController(), animated: true)

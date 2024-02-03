@@ -13,8 +13,8 @@ protocol RandomCardViewDelegate: AnyObject {
 
 class RandomCardView: UIView, UIGestureRecognizerDelegate {
     
-    var imageViewData: [String] = ["thumbnail","praha","thumbnail-2","thumbnail-3", "praha2", "praha3"]
-    var index: Int = 0
+    private var allData: [CardDatas] = []
+    private var index: Int = 0
     
     weak var delegate: RandomCardViewDelegate?
     
@@ -31,7 +31,7 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
         return imageView
     }()
     
-    let cancelButton: UIButton = {
+    private let cancelButton: UIButton = {
         let button = UIButton()
         
         button.setImage(.x.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -43,7 +43,7 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
         return button
     }()
     
-    let bookmarkButton: UIButton = {
+    private let bookmarkButton: UIButton = {
         let button = UIButton()
         
         button.setImage(.bookmark.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -86,6 +86,8 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
         configureLayout()
         addGesture()
         addTargetButtons()
+        
+        fetchFiveData()
     }
     
     required init?(coder: NSCoder) {
@@ -110,9 +112,7 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
             imageView.topAnchor.constraint(equalTo: margin.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: margin.trailingAnchor),
-            
             imageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1-(120/421)),
-            
             
             stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: 20),
@@ -131,6 +131,39 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
     }
 }
 
+//MARK: - DataFetch
+
+extension RandomCardView {
+    
+    private func fetchFiveData() {
+        let api = UnsplashAPI.random(count: 5)
+        
+        NetworkManager.fetchData(api: api) { result in
+            switch result {
+            case .success(let mainImageDtaDTO):
+                
+                for data in mainImageDtaDTO {
+                    NetworkManager.fetchImage(urlString: data.urls.regular) { result in
+                        switch result {
+                        case .success(let imageData):
+                            let processedData = CardDatas(id: data.id,
+                                                          description: data.description,
+                                                          urlString: data.urls.regular,
+                                                          uiimage: imageData
+                            )
+                            self.allData.append(processedData)
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+            }
+        }
+    }
+}
+
 //MARK: - ButtonAction
 extension RandomCardView {
     
@@ -141,7 +174,6 @@ extension RandomCardView {
     }
     
     @objc private func tapCancelButton() {
-        nextCard()
         rightToLeftAnimation()
     }
     
@@ -156,7 +188,11 @@ extension RandomCardView {
     }
     
     private func nextCard() {
-        
+        if index > allData.count - 4 {
+            print(self.allData.count)
+            fetchFiveData()
+        }
+        index += 1
     }
     
     private func addBookmark() {
@@ -177,34 +213,33 @@ extension RandomCardView {
     }
     
     @objc func swipeLeftToRight() {
-        if index > 4 {
-            index = 0
-        } else {
-            index += 1
-        }
-        
         leftToRightAnimation()
     }
     
     @objc func swipeRightToLeft() {
-        if index > 4 {
-            index = 0
-        } else {
-            index += 1
-        }
-        
         rightToLeftAnimation()
     }
     
     private func leftToRightAnimation() {
+        nextCard()
+        
         UIView.transition(with: self, duration: 1,options: .transitionFlipFromLeft) {
-            self.imageView.image = UIImage(named: self.imageViewData[self.index])
+            self.imageView.image = self.allData[self.index].uiimage
         }
     }
     
     private func rightToLeftAnimation() {
+        nextCard()
+        
         UIView.transition(with: self, duration: 1,options: .transitionFlipFromRight) {
-            self.imageView.image = UIImage(named: self.imageViewData[self.index])
+            self.imageView.image = self.allData[self.index].uiimage
         }
     }
+}
+
+struct CardDatas {
+    let id: String
+    let description: String?
+    let urlString: String
+    let uiimage: UIImage
 }
