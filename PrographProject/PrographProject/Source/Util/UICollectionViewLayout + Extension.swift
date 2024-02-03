@@ -25,7 +25,7 @@ extension UICollectionViewLayout {
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             
             section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 20
+            section.interGroupSpacing = 10
             section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
             section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
             
@@ -55,7 +55,7 @@ extension UICollectionViewLayout {
             
             
             let containerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                            heightDimension: .fractionalHeight(0.3))
+                                                            heightDimension: .fractionalHeight(0.35))
             let containerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: containerGroupSize,
                                                                     subitems: [leadingGroup, trailingGroup])
             

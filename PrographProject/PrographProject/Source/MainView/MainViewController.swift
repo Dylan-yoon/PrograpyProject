@@ -11,6 +11,7 @@ final class MainViewController: UIViewController {
     
     //    private let viewModel = MainViewModel()
     private var dataSource: UICollectionViewDiffableDataSource<MainSection, ImageData>?
+    private var page = 0
     
     private let logoView: UIImageView = {
         let view = UIImageView()
@@ -41,11 +42,7 @@ final class MainViewController: UIViewController {
         configureDataSource()
         configureSectionOfSnapshot()
         configureBookmarkData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+        fetchThirtyData()
     }
     
     private func configureCollectionView() {
@@ -59,9 +56,13 @@ final class MainViewController: UIViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.id, for: indexPath) as! PhotoCell
             
             let image = itemIdentifier.uiimage ?? UIImage(resource: .praha)
-            let title = itemIdentifier.userName ?? "Prograpy"
             
-            cell.configure(with: image, title: title)
+            if indexPath.section == 0 {
+                cell.configure(with: image, title: "")
+            } else {
+                let title = itemIdentifier.userName ?? "Prograpy"
+                cell.configure(with: image, title: title)
+            }
             
             return cell
         })
@@ -103,19 +104,15 @@ final class MainViewController: UIViewController {
             }
             
             for bookmarkData in bookmarkDatas {
-                print(bookmarkData)
+                var image: UIImage? = nil
                 
                 guard let id = bookmarkData.id else {
-                    print("here?")
                     return
                 }
-                
-                var image: UIImage? = nil
                 
                 if let imageData = bookmarkData.imageData {
                     image = UIImage(data: imageData)
                 }
-                
                 
                 snapshot.appendItems([ImageData(id: id,
                                                 description: bookmarkData.detail,
@@ -131,6 +128,48 @@ final class MainViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
+    
+    private func fetchThirtyData() {
+        
+        NetworkManager.fetchData(api: .main(page: page, perPage: 30, orderBy: .latest)) { result in
+            switch result {
+            case .success(let mainImageDatas):
+                
+                for mainImageData in mainImageDatas {
+                    
+                    NetworkManager.fetchImage(urlString: mainImageData.urls.regular) { result in
+                        switch result {
+                        case .success(let imageData):
+                            DispatchQueue.main.async {
+                                let processedData = ImageData(id: mainImageData.id,
+                                                              description: mainImageData.description,
+                                                              urlString: mainImageData.urls.regular,
+                                                              uiimage: imageData,
+                                                              userName: mainImageData.user.username
+                                )
+                                
+                                guard var snapshot = self.dataSource?.snapshot() else {
+                                    fatalError("SnapShot Binding Error _ Fetch Data")
+                                }
+                                
+                                
+                                snapshot.appendItems([processedData], toSection: .recents)
+                                self.dataSource?.apply(snapshot)
+                            }
+
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                        }
+                    }
+                    
+                }
+            case .failure(_):
+                fatalError("CollectionView Fetch ERROR")
+            }
+        }
+        
+        self.page += 1
+    }
 }
 
 //MARK: - CollectionViewDelegate
@@ -143,6 +182,26 @@ extension MainViewController: UICollectionViewDelegate {
             return header
         default:
             return UICollectionReusableView()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let snapshot = dataSource?.snapshot() else { return }
+        
+        if indexPath.section == 0 {
+            let imageData = snapshot.itemIdentifiers(inSection: .bookmark)
+            present(DetailViewController(type: .mainBookmark, id: imageData[indexPath.row].id), animated: true)
+        } else {
+            let imageData = snapshot.itemIdentifiers(inSection: .recents)
+            present(DetailViewController(type: .mainRecent, id: imageData[indexPath.row].id), animated: true)
+        }
+    }
+}
+
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+            fetchThirtyData()
         }
     }
 }
