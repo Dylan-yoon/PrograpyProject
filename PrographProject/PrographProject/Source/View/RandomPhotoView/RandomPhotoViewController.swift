@@ -9,7 +9,7 @@ import UIKit
 
 class RandomPhotoViewController: UIViewController {
     
-    let logoView: UIImageView = {
+    private let logoView: UIImageView = {
         let view = UIImageView()
         
         view.image = UIImage.prographyLogo
@@ -19,7 +19,7 @@ class RandomPhotoViewController: UIViewController {
         return view
     }()
     
-    let cardView: RandomCardView = {
+    private let cardView: RandomCardView = {
         let card = RandomCardView()
         
         card.translatesAutoresizingMaskIntoConstraints = false

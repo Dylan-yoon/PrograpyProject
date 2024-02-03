@@ -161,15 +161,12 @@
 		F625838B2B6AC305001DC03F /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				F62583A52B6C31C2001DC03F /* CoreData */,
 				F625838A2B6AC299001DC03F /* Application */,
-				F62583532B67A122001DC03F /* MainTabbarController.swift */,
-				F625835F2B6917EA001DC03F /* MainView */,
-				F68236342B6E769E00BA8C32 /* RandomPhotoView */,
-				F680687A2B6C9E4C00EAC09E /* DetailView */,
+				F682363D2B6EDED100BA8C32 /* View */,
 				F625838E2B6AC65E001DC03F /* Model */,
 				F62583882B6AC20E001DC03F /* Util */,
 				F62583972B6C266B001DC03F /* Network */,
+				F62583A52B6C31C2001DC03F /* CoreData */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -220,6 +217,17 @@
 				F68236322B6DFADB00BA8C32 /* RandomCardView.swift */,
 			);
 			path = RandomPhotoView;
+			sourceTree = "<group>";
+		};
+		F682363D2B6EDED100BA8C32 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F62583532B67A122001DC03F /* MainTabbarController.swift */,
+				F625835F2B6917EA001DC03F /* MainView */,
+				F68236342B6E769E00BA8C32 /* RandomPhotoView */,
+				F680687A2B6C9E4C00EAC09E /* DetailView */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

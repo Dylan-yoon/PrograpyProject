@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTabbarController: UITabBarController {
+final class MainTabbarController: UITabBarController {
     let mainTabImageName = "house"
     let secondTabImageName = "cards"
     

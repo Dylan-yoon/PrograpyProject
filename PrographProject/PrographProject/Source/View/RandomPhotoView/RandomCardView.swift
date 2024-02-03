@@ -11,7 +11,7 @@ protocol RandomCardViewDelegate: AnyObject {
     func infoButtonTapped(id: String)
 }
 
-class RandomCardView: UIView, UIGestureRecognizerDelegate {
+final class RandomCardView: UIView, UIGestureRecognizerDelegate {
     
     private var allData: [ImageData] = []
     private var index: Int = 0
@@ -55,7 +55,7 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
         return button
     }()
     
-    let infoButton: UIButton = {
+    private let infoButton: UIButton = {
         let button = UIButton()
         
         button.setImage(.information.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -67,7 +67,7 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
         return button
     }()
     
-    var stackView: UIStackView = {
+    private var stackView: UIStackView = {
         let stackview = UIStackView()
         
         stackview.axis = .horizontal
