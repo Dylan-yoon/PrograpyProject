@@ -35,18 +35,13 @@ class DetailImageView: UIView {
         ])
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        configureContents()
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func changeImage(uiimage: UIImage) {
         imageView.image = uiimage
+        configureContents()
     }
     
     func configureContents() {

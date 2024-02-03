@@ -13,11 +13,12 @@ class MainTabbarController: UITabBarController {
     
     let mainViewController = MainViewController()
     let secondViewController = RandomPhotoViewController()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureTabbar()
+        ConfigureTabbarAppearance()
     }
     
     func configureTabbar() {
@@ -31,5 +32,13 @@ class MainTabbarController: UITabBarController {
         tabBar.backgroundColor = .label
         tabBar.tintColor = .systemBackground
         tabBar.unselectedItemTintColor = .systemGray
+    }
+    
+    private func ConfigureTabbarAppearance() {
+        let tabbarAppearance = UITabBarAppearance()
+        
+        tabbarAppearance.backgroundColor = .label
+        tabBar.standardAppearance = tabbarAppearance
+        tabBar.scrollEdgeAppearance = tabbarAppearance
     }
 }

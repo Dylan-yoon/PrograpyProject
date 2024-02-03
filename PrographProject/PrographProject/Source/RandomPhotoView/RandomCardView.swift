@@ -137,8 +137,12 @@ extension RandomCardView {
     
     private func inins() {
         fetchFiveData(count: 1) {
-            self.imageView.image = self.allData.first?.uiimage
+            DispatchQueue.main.async {
+                self.imageView.image = self.allData.first?.uiimage
+            }
         }
+        
+        fetchFiveData(count: 5) {}
     }
     
     private func fetchFiveData(count: Int ,completion: @escaping () -> Void) {
