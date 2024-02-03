@@ -208,11 +208,16 @@ extension RandomCardView {
     
     private func addBookmark() {
         do {
+            let saveData = allData[self.index]
+            
             try CoreDataManager.shared.saveData(
                 BookmarkData(
-                    detail: allData[self.index].description,
+                    detail: saveData.description,
                     id: allData[self.index].id,
-                    url: "")
+                    url: saveData.urlString,
+                    username: saveData.userName,
+                    imageData: saveData.uiimage?.pngData()
+                )
             )
         } catch {
             fatalError("CoreData Save Error")

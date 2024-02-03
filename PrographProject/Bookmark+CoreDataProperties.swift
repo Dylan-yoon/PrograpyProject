@@ -2,7 +2,7 @@
 //  Bookmark+CoreDataProperties.swift
 //  PrographProject
 //
-//  Created by Dylan_Y on 2/2/24.
+//  Created by Dylan_Y on 2/4/24.
 //
 //
 
@@ -16,9 +16,11 @@ extension Bookmark {
         return NSFetchRequest<Bookmark>(entityName: "Bookmark")
     }
 
+    @NSManaged public var detail: String?
     @NSManaged public var id: String?
     @NSManaged public var url: String?
-    @NSManaged public var detail: String?
+    @NSManaged public var username: String?
+    @NSManaged public var image: Data?
 
 }
 

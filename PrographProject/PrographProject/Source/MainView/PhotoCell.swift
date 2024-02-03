@@ -7,26 +7,29 @@
 
 import UIKit
 
-class PhotoCell: UICollectionViewCell {
+final class PhotoCell: UICollectionViewCell {
     static let id = "PhotoCell"
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
+        
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .systemBlue
+//        imageView.backgroundColor = .systemBlue
         imageView.layer.cornerRadius = 10
         
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
+        
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
@@ -51,14 +54,6 @@ class PhotoCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//    
-//    override func layoutSubviews() {
-//        
-//        super.layoutSubviews()
-//        titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
-////        subtitleLabel.preferredMaxLayoutWidth = subtitleLabel.frame.size.width
-//        super.layoutSubviews()
-//    }
     
     func configure(with image: UIImage, title: String) {
         imageView.image = image

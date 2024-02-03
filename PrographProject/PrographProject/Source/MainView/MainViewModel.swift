@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MainViewModel {
+final class MainViewModel {
     var bookmarkData = BookMarkData.generateMockDatas()
     var recentData = MockData.generateMockDatas()
 }

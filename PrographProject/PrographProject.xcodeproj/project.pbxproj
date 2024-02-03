@@ -25,12 +25,12 @@
 		F62583962B6C1B2A001DC03F /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583952B6C1B2A001DC03F /* UnsplashAPI.swift */; };
 		F62583992B6C270C001DC03F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583982B6C270C001DC03F /* CoreDataManager.swift */; };
 		F625839C2B6C2731001DC03F /* BookMark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F625839A2B6C2731001DC03F /* BookMark.xcdatamodeld */; };
-		F62583A82B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583A62B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift */; };
-		F62583A92B6C31DA001DC03F /* Bookmark+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583A72B6C31DA001DC03F /* Bookmark+CoreDataClass.swift */; };
 		F68068792B6C9E4400EAC09E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68068782B6C9E4400EAC09E /* DetailViewController.swift */; };
 		F680687C2B6CD10900EAC09E /* DetailImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F680687B2B6CD10900EAC09E /* DetailImageView.swift */; };
 		F68236332B6DFADB00BA8C32 /* RandomCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68236322B6DFADB00BA8C32 /* RandomCardView.swift */; };
 		F68236362B6E791200BA8C32 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68236352B6E791200BA8C32 /* ImageData.swift */; };
+		F68236392B6E971700BA8C32 /* Bookmark+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68236372B6E971700BA8C32 /* Bookmark+CoreDataClass.swift */; };
+		F682363A2B6E971700BA8C32 /* Bookmark+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68236382B6E971700BA8C32 /* Bookmark+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,12 +56,12 @@
 		F62583952B6C1B2A001DC03F /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
 		F62583982B6C270C001DC03F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F625839B2B6C2731001DC03F /* BookMark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookMark.xcdatamodel; sourceTree = "<group>"; };
-		F62583A62B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F62583A72B6C31DA001DC03F /* Bookmark+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F68068782B6C9E4400EAC09E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F680687B2B6CD10900EAC09E /* DetailImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageView.swift; sourceTree = "<group>"; };
 		F68236322B6DFADB00BA8C32 /* RandomCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCardView.swift; sourceTree = "<group>"; };
 		F68236352B6E791200BA8C32 /* ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
+		F68236372B6E971700BA8C32 /* Bookmark+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		F68236382B6E971700BA8C32 /* Bookmark+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,8 +196,8 @@
 		F62583A52B6C31C2001DC03F /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				F62583A72B6C31DA001DC03F /* Bookmark+CoreDataClass.swift */,
-				F62583A62B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift */,
+				F68236372B6E971700BA8C32 /* Bookmark+CoreDataClass.swift */,
+				F68236382B6E971700BA8C32 /* Bookmark+CoreDataProperties.swift */,
 				F62583982B6C270C001DC03F /* CoreDataManager.swift */,
 				F625839A2B6C2731001DC03F /* BookMark.xcdatamodeld */,
 			);
@@ -340,13 +340,12 @@
 				F680687C2B6CD10900EAC09E /* DetailImageView.swift in Sources */,
 				F68068792B6C9E4400EAC09E /* DetailViewController.swift in Sources */,
 				F62583922B6BB4F1001DC03F /* MainImageDataDTO.swift in Sources */,
-				F62583A92B6C31DA001DC03F /* Bookmark+CoreDataClass.swift in Sources */,
 				F625839C2B6C2731001DC03F /* BookMark.xcdatamodeld in Sources */,
 				F62583632B69260C001DC03F /* MainHeaderView.swift in Sources */,
 				F625835E2B691786001DC03F /* MainViewModel.swift in Sources */,
 				F62583402B679E0D001DC03F /* AppDelegate.swift in Sources */,
+				F68236392B6E971700BA8C32 /* Bookmark+CoreDataClass.swift in Sources */,
 				F62583902B6BB442001DC03F /* NetworkManager.swift in Sources */,
-				F62583A82B6C31DA001DC03F /* Bookmark+CoreDataProperties.swift in Sources */,
 				F62583582B6809D2001DC03F /* RandomPhotoViewController.swift in Sources */,
 				F62583542B67A122001DC03F /* MainTabbarController.swift in Sources */,
 				F62583422B679E0D001DC03F /* SceneDelegate.swift in Sources */,
@@ -355,6 +354,7 @@
 				F62583962B6C1B2A001DC03F /* UnsplashAPI.swift in Sources */,
 				F68236332B6DFADB00BA8C32 /* RandomCardView.swift in Sources */,
 				F62583992B6C270C001DC03F /* CoreDataManager.swift in Sources */,
+				F682363A2B6E971700BA8C32 /* Bookmark+CoreDataProperties.swift in Sources */,
 				F62583562B67E838001DC03F /* MainViewController.swift in Sources */,
 				F68236362B6E791200BA8C32 /* ImageData.swift in Sources */,
 			);

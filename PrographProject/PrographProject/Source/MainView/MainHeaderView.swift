@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainHeaderView: UICollectionReusableView {
+final class MainHeaderView: UICollectionReusableView {
     static let id = "MainHeaderView"
     
     private let label: UILabel = {
@@ -23,6 +23,7 @@ class MainHeaderView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .white
         setUI()
     }
     
@@ -44,7 +45,6 @@ class MainHeaderView: UICollectionReusableView {
             label.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -5),
         ])
     }
-    
     
     func configure(with headerText: String) {
         label.text = headerText
