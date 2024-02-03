@@ -24,8 +24,9 @@ class CoreDataManager {
         
         do {
             let result = try context.fetch(Bookmark.fetchRequest())
+            
             let data = result.compactMap {
-                BookmarkData(detail: $0.detail, id: $0.id, url: $0.url)
+                BookmarkData(detail: $0.detail, id: $0.id, url: $0.url, username: $0.username, imageData: $0.image)
             }
             
             return .success(data)
@@ -47,6 +48,8 @@ class CoreDataManager {
             info.setValue(bookmarkData.detail, forKey: "detail")
             info.setValue(bookmarkData.id, forKey: "id")
             info.setValue(bookmarkData.url, forKey: "url")
+            info.setValue(bookmarkData.username, forKey: "username")
+            info.setValue(bookmarkData.imageData, forKey: "image")
             do {
                 try context.save()
             } catch {
@@ -137,4 +140,6 @@ struct BookmarkData {
     let detail: String?
     let id: String?
     let url: String?
+    let username: String?
+    let imageData: Data?
 }

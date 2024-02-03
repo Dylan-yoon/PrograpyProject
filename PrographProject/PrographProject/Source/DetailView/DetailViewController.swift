@@ -259,7 +259,7 @@ extension DetailViewController {
         
         guard let imageData = imageData else { return }
         userNameLabel.text = imageData.userName
-        imageContentsView.changeImage(uiimage: imageData.uiimage)
+        imageContentsView.changeImage(uiimage: imageData.uiimage ?? UIImage(resource: .praha))
         guard let description = imageData.description else { return }
         descriptionLabel.text = description
     }

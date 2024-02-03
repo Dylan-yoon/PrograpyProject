@@ -36,8 +36,11 @@ extension UICollectionViewLayout {
                 elementKind: UICollectionView.elementKindSectionHeader,
                 alignment: .top
             )
+            header.pinToVisibleBounds = true
             section.boundarySupplementaryItems = [header]
+            
         } else if sectionKind == .recents {
+            
             let leadingItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
             let leadingItem = NSCollectionLayoutItem(layoutSize: leadingItemSize)
             leadingItem.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
@@ -68,6 +71,7 @@ extension UICollectionViewLayout {
                 elementKind: UICollectionView.elementKindSectionHeader,
                 alignment: .top
             )
+            header.pinToVisibleBounds = true
             section.boundarySupplementaryItems = [header]
         } else {
             fatalError("Unknown section!")

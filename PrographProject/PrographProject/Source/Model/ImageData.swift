@@ -7,10 +7,10 @@
 
 import UIKit
 
-struct ImageData {
+struct ImageData: Hashable {
     let id: String
     let description: String?
-    let urlString: String
-    let uiimage: UIImage
-    let userName: String
+    let urlString: String?
+    let uiimage: UIImage?
+    let userName: String?
 }

@@ -7,14 +7,22 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
     
-    let viewModel = MainViewModel()
-    var dataSource: UICollectionViewDiffableDataSource<MainSection, MockData>!
+    //    private let viewModel = MainViewModel()
+    private var dataSource: UICollectionViewDiffableDataSource<MainSection, ImageData>?
     
-    let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+    private let logoView: UIImageView = {
+        let view = UIImageView()
         
+        view.image = UIImage.prographyLogo
+        view.contentMode = .scaleAspectFit
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    private let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .mainlayout)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -28,15 +36,16 @@ class MainViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
-        configureCollectionView()
         configureLayout()
+        configureCollectionView()
         configureDataSource()
+        configureSectionOfSnapshot()
+        configureBookmarkData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        bb()
-        cc()
-        cc()
-        aa()
-        aa()
     }
     
     private func configureCollectionView() {
@@ -45,22 +54,14 @@ class MainViewController: UIViewController {
         collectionView.register(MainHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainHeaderView.id)
     }
     
-    private func configureLayout() {
-        view.addSubview(collectionView)
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
-        ])
-    }
-    
     private func configureDataSource() {
-        self.dataSource = UICollectionViewDiffableDataSource<MainSection, MockData>(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+        self.dataSource = UICollectionViewDiffableDataSource<MainSection, ImageData>(collectionView: self.collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.id, for: indexPath) as! PhotoCell
             
-            cell.configure(with: UIImage(named: itemIdentifier.imageName)!, title: itemIdentifier.title)
+            let image = itemIdentifier.uiimage ?? UIImage(resource: .praha)
+            let title = itemIdentifier.userName ?? "Prograpy"
+            
+            cell.configure(with: image, title: title)
             
             return cell
         })
@@ -78,42 +79,62 @@ class MainViewController: UIViewController {
             }
         }
         
-        dataSource.supplementaryViewProvider = { (view, kind, index) in
+        dataSource?.supplementaryViewProvider = { (view, kind, index) in
             return self.collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration, for: index)
         }
     }
     
-    func bb() {
-        var snapshot = dataSource.snapshot()
-        snapshot.appendSections([.bookmark, .recents])
-        dataSource.apply(snapshot)
-    }
-    
-    func aa() {
-        var snapshot = dataSource.snapshot()
-        snapshot.appendItems([MockData(imageName: "praha", title: "asdfasdfasdfasdf")], toSection: .recents)
-        dataSource.apply(snapshot)
-    }
-    
-    func cc() {
-        var snapshot = dataSource.snapshot()
-        
-        let data = MockData.generateMockDatas()
-        
-        for i in data {
-            snapshot.appendItems([i], toSection: .recents)
+    private func configureSectionOfSnapshot() {
+        guard var snapshot = dataSource?.snapshot() else {
+            fatalError("DATASOURCE ERROR")
         }
-        snapshot.appendItems([MockData(imageName: "praha", title: "asdfasdfasdfasdf")], toSection: .bookmark)
-        snapshot.appendItems([MockData(imageName: "thumbnail-2", title: "thumbnail-2")], toSection: .bookmark)
-        snapshot.appendItems([MockData(imageName: "thumbnail-3", title: "thumbnail-3")], toSection: .bookmark)
+        snapshot.appendSections([.bookmark, .recents])
+        dataSource?.apply(snapshot)
+    }
+    
+    private func configureBookmarkData() {
         
-        dataSource.apply(snapshot)
+        switch CoreDataManager.shared.fetchData() {
+        case .success(let bookmarkDatas):
+            
+            guard var snapshot = dataSource?.snapshot() else {
+                fatalError("DATASOURCE ERROR")
+            }
+            
+            for bookmarkData in bookmarkDatas {
+                print(bookmarkData)
+                
+                guard let id = bookmarkData.id else {
+                    print("here?")
+                    return
+                }
+                
+                var image: UIImage? = nil
+                
+                if let imageData = bookmarkData.imageData {
+                    image = UIImage(data: imageData)
+                }
+                
+                
+                snapshot.appendItems([ImageData(id: id,
+                                                description: bookmarkData.detail,
+                                                urlString: bookmarkData.url,
+                                                uiimage: image,
+                                                userName: bookmarkData.username)],
+                                     toSection: .bookmark)
+            }
+            
+            print(snapshot.itemIdentifiers)
+            dataSource?.apply(snapshot)
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
     }
 }
 
 //MARK: - CollectionViewDelegate
-extension MainViewController:  UICollectionViewDelegate {
+extension MainViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
@@ -123,5 +144,28 @@ extension MainViewController:  UICollectionViewDelegate {
         default:
             return UICollectionReusableView()
         }
+    }
+}
+
+//MARK: - Layout
+extension MainViewController {
+    private func configureLayout() {
+        view.addSubview(logoView)
+        view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            logoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            logoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            logoView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+        ])
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: 15),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+        ])
+        
+        logoView.setContentHuggingPriority(.required, for: .vertical)
     }
 }
