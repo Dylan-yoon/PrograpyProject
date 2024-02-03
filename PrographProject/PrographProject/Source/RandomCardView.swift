@@ -7,10 +7,16 @@
 
 import UIKit
 
+protocol RandomCardViewDelegate: AnyObject {
+    func infoButtonTapped()
+}
+
 class RandomCardView: UIView, UIGestureRecognizerDelegate {
     
     var imageViewData: [String] = ["thumbnail","praha","thumbnail-2","thumbnail-3", "praha2", "praha3"]
-    var index: Int = -1
+    var index: Int = 0
+    
+    weak var delegate: RandomCardViewDelegate?
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -78,7 +84,8 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
         
         configureView()
         configureLayout()
-        gesture()
+        addGesture()
+        addTargetButtons()
     }
     
     required init?(coder: NSCoder) {
@@ -124,9 +131,42 @@ class RandomCardView: UIView, UIGestureRecognizerDelegate {
     }
 }
 
+//MARK: - ButtonAction
 extension RandomCardView {
     
-    private func gesture() {
+    private func addTargetButtons() {
+        cancelButton.addTarget(nil, action: #selector(tapCancelButton), for: .touchUpInside)
+        bookmarkButton.addTarget(nil, action: #selector(tapBookmarkButton), for: .touchUpInside)
+        infoButton.addTarget(nil, action: #selector(tapInfoButton), for: .touchUpInside)
+    }
+    
+    @objc private func tapCancelButton() {
+        nextCard()
+        rightToLeftAnimation()
+    }
+    
+    @objc private func tapBookmarkButton() {
+        addBookmark()
+        leftToRightAnimation()
+    }
+    
+    @objc private func tapInfoButton() {
+        // 데이터 전송
+        delegate?.infoButtonTapped()
+    }
+    
+    private func nextCard() {
+        
+    }
+    
+    private func addBookmark() {
+        
+    }
+}
+
+extension RandomCardView {
+    
+    private func addGesture() {
         let swipeRightGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeftToRight))
         swipeRightGestureRecognizer.direction = .right
         self.addGestureRecognizer(swipeRightGestureRecognizer)
@@ -143,11 +183,7 @@ extension RandomCardView {
             index += 1
         }
         
-        UIView.transition(with: self, duration: 1,options: .transitionFlipFromLeft) {
-            self.imageView.image = UIImage(named: self.imageViewData[self.index])
-        }
-        
-        layoutIfNeeded()
+        leftToRightAnimation()
     }
     
     @objc func swipeRightToLeft() {
@@ -156,10 +192,19 @@ extension RandomCardView {
         } else {
             index += 1
         }
+        
+        rightToLeftAnimation()
+    }
+    
+    private func leftToRightAnimation() {
+        UIView.transition(with: self, duration: 1,options: .transitionFlipFromLeft) {
+            self.imageView.image = UIImage(named: self.imageViewData[self.index])
+        }
+    }
+    
+    private func rightToLeftAnimation() {
         UIView.transition(with: self, duration: 1,options: .transitionFlipFromRight) {
             self.imageView.image = UIImage(named: self.imageViewData[self.index])
         }
-        
-        layoutIfNeeded()
     }
 }

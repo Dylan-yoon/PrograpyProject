@@ -108,7 +108,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.92)
         configureLayout()
         configureButton()
         
@@ -118,7 +118,7 @@ class DetailViewController: UIViewController {
     }
     
     @objc func tapCancelButton() {
-        
+        self.dismiss(animated: true)
     }
     
     @objc func tapDownloadButton() {

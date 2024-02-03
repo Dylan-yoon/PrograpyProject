@@ -31,6 +31,8 @@ class RandomPhotoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        cardview.delegate = self
+        
         view.addSubview(logoView)
         view.addSubview(cardview)
         
@@ -46,5 +48,12 @@ class RandomPhotoViewController: UIViewController {
         ])
         
         logoView.setContentHuggingPriority(.required, for: .vertical)
+    }
+}
+
+extension RandomPhotoViewController: RandomCardViewDelegate {
+    func infoButtonTapped() {
+        print("here")
+        present(DetailViewController(), animated: true)
     }
 }
