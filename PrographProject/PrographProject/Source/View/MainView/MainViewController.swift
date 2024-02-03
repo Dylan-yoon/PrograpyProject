@@ -64,6 +64,7 @@ final class MainViewController: UIViewController {
             let image = itemIdentifier.uiimage ?? UIImage(resource: .praha)
             
             if indexPath.section == 0 {
+                
                 cell.configure(with: image, title: "")
             } else {
                 let title = itemIdentifier.userName ?? "Prograpy"
@@ -101,14 +102,11 @@ final class MainViewController: UIViewController {
     }
     
     private func configureBookmarkData() {
-        
+        guard var snapshot = dataSource?.snapshot() else {
+            fatalError("DATASOURCE ERROR")
+        }
         switch CoreDataManager.shared.fetchData() {
         case .success(let bookmarkDatas):
-            
-            guard var snapshot = dataSource?.snapshot() else {
-                fatalError("DATASOURCE ERROR")
-            }
-            
             for bookmarkData in bookmarkDatas {
                 var image: UIImage? = nil
                 

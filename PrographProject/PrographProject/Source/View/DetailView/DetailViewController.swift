@@ -259,12 +259,23 @@ extension DetailViewController {
         // 인디케이터 종료
         activityIndicator.stopAnimating()
         
-        guard let imageData = imageData,
-              let description = imageData.description else { return }
+        guard let imageData = imageData else {
+            let data = ImageData.defaultData()
+            
+            userNameLabel.text = data.userName
+            imageContentsView.changeImage(uiimage: data.uiimage ?? UIImage(resource: .praha))
+            descriptionLabel.text = data.description
+            
+            return
+        }
+        
+        if let description = imageData.description {
+            descriptionLabel.text = description
+        } else {
+            descriptionLabel.text = "DESCRIPTION"
+        }
         userNameLabel.text = imageData.userName
         imageContentsView.changeImage(uiimage: imageData.uiimage ?? UIImage(resource: .praha))
-        
-        descriptionLabel.text = description
     }
 }
 
