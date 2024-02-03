@@ -14,6 +14,7 @@ final class MainHeaderView: UICollectionReusableView {
         let label = UILabel()
         
         label.text = "HEADER"
+        label.textColor = .label
         label.font = .preferredFont(forTextStyle: .headline)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -22,7 +23,7 @@ final class MainHeaderView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
+        self.backgroundColor = .systemBackground
         setUI()
     }
     

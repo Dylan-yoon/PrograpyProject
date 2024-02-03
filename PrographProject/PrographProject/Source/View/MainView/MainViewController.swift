@@ -30,7 +30,7 @@ final class MainViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .mainlayout)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         
         return collectionView
     }()
