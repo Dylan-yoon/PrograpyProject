@@ -8,7 +8,6 @@
 import UIKit
 
 class DetailImageView: UIView {
-    
     private var idimage = UIImage()
     
     private let imageView: UIImageView = {
@@ -37,7 +36,7 @@ class DetailImageView: UIView {
         configureContents()
     }
     
-    func configureContents() {
+    private func configureContents() {
         guard let image = imageView.image else { return }
         
         let imageRatio = image.size.height/image.size.width

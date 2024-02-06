@@ -37,8 +37,16 @@ final class PhotoCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        activityIndicator.startAnimating()
+        contentView.addSubview(activityIndicator)
         
+        configureLayout()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureLayout() {
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         
@@ -55,14 +63,10 @@ final class PhotoCell: UICollectionViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
         
-        self.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func configure(with image: UIImage, title: String) {

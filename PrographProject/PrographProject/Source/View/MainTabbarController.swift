@@ -8,33 +8,31 @@
 import UIKit
 
 final class MainTabbarController: UITabBarController {
-    let mainTabImageName = "house"
-    let secondTabImageName = "cards"
+    private let mainTabImageName = "house"
+    private let secondTabImageName = "cards"
     
-    let mainViewController = MainViewController()
-    let secondViewController = RandomPhotoViewController()
+    private let mainViewController = MainViewController()
+    private let secondViewController = RandomPhotoViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureTabbar()
-        ConfigureTabbarAppearance()
     }
     
-    func configureTabbar() {
-        setViewControllers([
-            mainViewController,
-            secondViewController
-        ], animated: true)
+    private func configureTabbar() {
+        setViewControllers([mainViewController, secondViewController], animated: true)
         
         mainViewController.tabBarItem.image = UIImage(named: mainTabImageName)
         secondViewController.tabBarItem.image = UIImage(named: secondTabImageName)
         tabBar.backgroundColor = .label
         tabBar.tintColor = .white
         tabBar.unselectedItemTintColor = .systemGray
+        
+        configureTabbarAppearance()
     }
     
-    private func ConfigureTabbarAppearance() {
+    private func configureTabbarAppearance() {
         let tabbarAppearance = UITabBarAppearance()
         
         tabbarAppearance.backgroundColor = .black

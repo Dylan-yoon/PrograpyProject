@@ -5,8 +5,6 @@
 //  Created by Dylan_Y on 2/1/24.
 //
 
-import Foundation
-
 struct MainImageDataDTO: Decodable {
     let id: String
     let width: Int

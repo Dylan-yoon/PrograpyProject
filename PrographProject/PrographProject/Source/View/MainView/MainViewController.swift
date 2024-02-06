@@ -12,7 +12,6 @@ protocol BookMarkConformable: AnyObject {
 }
 
 final class MainViewController: UIViewController {
-    
     private var dataSource: UICollectionViewDiffableDataSource<MainSection, ImageData>?
     private var page = 0
     
@@ -29,8 +28,8 @@ final class MainViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .mainlayout)
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemBackground
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
     }()
@@ -42,55 +41,8 @@ final class MainViewController: UIViewController {
         
         configureLayout()
         configureCollectionView()
-        configureDataSource()
-        configureSectionOfSnapshot()
         configureBookmarkData()
         fetchThirtyData()
-    }
-    
-    private func configureCollectionView() {
-        self.collectionView.delegate = self
-        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.id)
-        collectionView.register(MainHeaderView.self, 
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: MainHeaderView.id)
-    }
-    
-    private func configureDataSource() {
-        self.dataSource = UICollectionViewDiffableDataSource<MainSection, ImageData>(collectionView: self.collectionView,
-                                                                                     cellProvider: { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.id, for: indexPath) as! PhotoCell
-            
-            let image = itemIdentifier.uiimage ?? UIImage(resource: .praha)
-            
-            if indexPath.section == 0 {
-                
-                cell.configure(with: image, title: "")
-            } else {
-                let title = itemIdentifier.userName ?? "Prograpy"
-                cell.configure(with: image, title: title)
-            }
-            
-            return cell
-        })
-        
-        // Header
-        let headerRegistration = UICollectionView.SupplementaryRegistration<MainHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) {
-            (supplementaryView, string, indexPath) in
-            switch indexPath.section {
-            case 0:
-                supplementaryView.configure(with: "북마크")
-            case 1:
-                supplementaryView.configure(with: "최신 이미지")
-            default:
-                supplementaryView.configure(with: "Unknown Section: \(indexPath.section)")
-            }
-        }
-        
-        dataSource?.supplementaryViewProvider = { (view, kind, index) in
-            return self.collectionView.dequeueConfiguredReusableSupplementary(
-                using: headerRegistration, for: index)
-        }
     }
     
     private func configureSectionOfSnapshot() {
@@ -172,6 +124,58 @@ final class MainViewController: UIViewController {
     }
 }
 
+//MARK: - CollectionView
+extension MainViewController {
+    
+    private func configureCollectionView() {
+        self.collectionView.delegate = self
+        
+        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.id)
+        collectionView.register(MainHeaderView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: MainHeaderView.id)
+        
+        configureDataSource()
+        configureSectionOfSnapshot()
+    }
+    
+    private func configureDataSource() {
+        self.dataSource = UICollectionViewDiffableDataSource<MainSection, ImageData>(collectionView: self.collectionView,
+                                                                                     cellProvider: { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.id, for: indexPath) as! PhotoCell
+            let image = itemIdentifier.uiimage ?? UIImage(resource: .praha)
+            
+            if indexPath.section == 0 {
+                cell.configure(with: image, title: "")
+            } else {
+                let title = itemIdentifier.userName ?? "Prograpy"
+                cell.configure(with: image, title: title)
+            }
+            
+            return cell
+        })
+        
+        // Header
+        let headerRegistration = UICollectionView.SupplementaryRegistration<MainHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) {
+            (supplementaryView, string, indexPath) in
+            
+            switch indexPath.section {
+            case 0:
+                supplementaryView.configure(with: "북마크")
+            case 1:
+                supplementaryView.configure(with: "최신 이미지")
+            default:
+                supplementaryView.configure(with: "Unknown Section: \(indexPath.section)")
+            }
+        }
+        
+        dataSource?.supplementaryViewProvider = { (view, kind, index) in
+            return self.collectionView.dequeueConfiguredReusableSupplementary(
+                using: headerRegistration, for: index)
+        }
+    }
+}
+
 //MARK: - CollectionViewDelegate
 extension MainViewController: UICollectionViewDelegate {
     
@@ -214,6 +218,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
 //MARK: - Layout
 extension MainViewController {
+    
     private func configureLayout() {
         view.addSubview(logoView)
         view.addSubview(collectionView)

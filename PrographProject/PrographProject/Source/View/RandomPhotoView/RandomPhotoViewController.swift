@@ -12,7 +12,6 @@ protocol RandomCardViewDelegate: AnyObject {
 }
 
 class RandomPhotoViewController: UIViewController {
-    
     private let logoView: UIImageView = {
         let view = UIImageView()
         

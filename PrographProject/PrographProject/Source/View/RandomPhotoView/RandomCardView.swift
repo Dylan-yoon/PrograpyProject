@@ -7,9 +7,7 @@
 
 import UIKit
 
-
 final class RandomCardView: UIView, UIGestureRecognizerDelegate {
-    
     private var allData: [ImageData] = []
     private var index: Int = 0
     

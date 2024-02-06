@@ -14,15 +14,13 @@ enum DetialType: String {
 }
 
 final class DetailViewController: UIViewController {
-    
     private var detailType: DetialType
     private var imageData: ImageData?
     private var defaultID: String
     private var isBookmarked: Bool
+    private var activityIndicator = UIActivityIndicatorView()
     
     weak var delegate: BookMarkConformable?
-    
-    private var activityIndicator = UIActivityIndicatorView()
     
     private let cancelButton: UIButton = {
         let button = UIButton()
