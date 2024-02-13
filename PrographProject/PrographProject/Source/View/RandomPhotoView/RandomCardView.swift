@@ -110,13 +110,13 @@ extension RandomCardView {
             case .success(let mainImageDtaDTO):
                 
                 for data in mainImageDtaDTO {
-                    NetworkManager.shared.fetchImage(urlString: data.urls.regular) { result in
+                    NetworkManager.shared.fetchData(with: data.urls.regular) { result in
                         switch result {
                         case .success(let imageData):
                             let processedData = ImageData(id: data.id,
                                                           description: data.description,
                                                           urlString: data.urls.regular,
-                                                          uiimage: imageData,
+                                                          uiimage: UIImage(data: imageData),
                                                           userName: data.user.username
                             )
                             self.allData.append(processedData)

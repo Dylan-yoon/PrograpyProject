@@ -1,5 +1,5 @@
 //
-//  UnsplashAPI.swift
+//  EndPoint.swift
 //  PrographProject
 //
 //  Created by Dylan_Y on 2/2/24.

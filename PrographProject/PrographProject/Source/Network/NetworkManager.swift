@@ -5,7 +5,7 @@
 //  Created by Dylan_Y on 2/1/24.
 //
 
-import UIKit
+import Foundation
 
 final class NetworkManager {
     static let shared = NetworkManager()
@@ -108,28 +108,6 @@ final class NetworkManager {
         }
         
         task.resume()
-    }
-    
-    //TODO: Delete
-    func fetchImage(urlString: String, completion: @escaping (Result<(UIImage), NetworkError>) -> Void) {
-        guard let url = URL(string: urlString) else {
-            completion(.failure(.apiError))
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print("Error downloading image: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let data = data,
-                  let image = UIImage(data: data) else {
-                print("Invalid image data or unable to create UIImage.")
-                return
-            }
-            completion(.success(image))
-        }.resume()
     }
 }
 

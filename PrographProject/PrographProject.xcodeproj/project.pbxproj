@@ -22,7 +22,7 @@
 		F625838D2B6AC383001DC03F /* MainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F625838C2B6AC383001DC03F /* MainSection.swift */; };
 		F62583902B6BB442001DC03F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F625838F2B6BB442001DC03F /* NetworkManager.swift */; };
 		F62583922B6BB4F1001DC03F /* MainImageDataDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583912B6BB4F1001DC03F /* MainImageDataDTO.swift */; };
-		F62583962B6C1B2A001DC03F /* UnsplashAPIEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583952B6C1B2A001DC03F /* UnsplashAPIEndPoint.swift */; };
+		F62583962B6C1B2A001DC03F /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583952B6C1B2A001DC03F /* EndPoint.swift */; };
 		F62583992B6C270C001DC03F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583982B6C270C001DC03F /* CoreDataManager.swift */; };
 		F625839C2B6C2731001DC03F /* BookMark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F625839A2B6C2731001DC03F /* BookMark.xcdatamodeld */; };
 		F672B85D2B79065D00053299 /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F672B85C2B79065D00053299 /* UnsplashAPI.swift */; };
@@ -55,7 +55,7 @@
 		F625838C2B6AC383001DC03F /* MainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSection.swift; sourceTree = "<group>"; };
 		F625838F2B6BB442001DC03F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F62583912B6BB4F1001DC03F /* MainImageDataDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainImageDataDTO.swift; sourceTree = "<group>"; };
-		F62583952B6C1B2A001DC03F /* UnsplashAPIEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPIEndPoint.swift; sourceTree = "<group>"; };
+		F62583952B6C1B2A001DC03F /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		F62583982B6C270C001DC03F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F625839B2B6C2731001DC03F /* BookMark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookMark.xcdatamodel; sourceTree = "<group>"; };
 		F672B85C2B79065D00053299 /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
@@ -188,9 +188,9 @@
 			isa = PBXGroup;
 			children = (
 				F625838F2B6BB442001DC03F /* NetworkManager.swift */,
-				F672B85C2B79065D00053299 /* UnsplashAPI.swift */,
-				F62583952B6C1B2A001DC03F /* UnsplashAPIEndPoint.swift */,
+				F62583952B6C1B2A001DC03F /* EndPoint.swift */,
 				F672B85E2B7B6C8C00053299 /* HTTPMethod.swift */,
+				F672B85C2B79065D00053299 /* UnsplashAPI.swift */,
 				F62583912B6BB4F1001DC03F /* MainImageDataDTO.swift */,
 			);
 			path = Network;
@@ -365,7 +365,7 @@
 				F62583422B679E0D001DC03F /* SceneDelegate.swift in Sources */,
 				F625835C2B680E8C001DC03F /* PhotoCell.swift in Sources */,
 				F625838D2B6AC383001DC03F /* MainSection.swift in Sources */,
-				F62583962B6C1B2A001DC03F /* UnsplashAPIEndPoint.swift in Sources */,
+				F62583962B6C1B2A001DC03F /* EndPoint.swift in Sources */,
 				F672B85D2B79065D00053299 /* UnsplashAPI.swift in Sources */,
 				F68236332B6DFADB00BA8C32 /* RandomCardView.swift in Sources */,
 				F62583992B6C270C001DC03F /* CoreDataManager.swift in Sources */,

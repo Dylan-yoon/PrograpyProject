@@ -14,7 +14,7 @@ final class UnsplashAPI {
         case latest, oldest, popular
     }
     
-    func fetchList(_ page: Int, _ per_page: Int, _ order_by: OrderBy = .latest, completion: @escaping (Result<[MainImageDataDTO], UnsplashAPIError>) -> Void) {
+    func fetchDatas(_ page: Int, _ per_page: Int, _ order_by: OrderBy = .latest, completion: @escaping (Result<[MainImageDataDTO], UnsplashAPIError>) -> Void) {
         let page = URLQueryItem(name: "page", value: "\(page)")
         let perPage = URLQueryItem(name: "per_page", value: "\(per_page)")
         let orderBy = URLQueryItem(name: "order_by", value: "\(order_by.rawValue)")
@@ -74,23 +74,6 @@ final class UnsplashAPI {
             }
         }
     }
-    
-//    private func fetchData<T: Decodable>(using endPoint: EndPoint, completion: @escaping (Result<T, UnsplashAPIError>) -> Void) {
-//        NetworkManager.shared.fetchData(with: endPoint) { result in
-//            switch result {
-//            case .success(let data):
-//                do {
-//                    let decodedData = try JSONDecoder().decode(T.self, from: data)
-//                    
-//                    completion(.success(decodedData))
-//                } catch {
-//                    print(error.localizedDescription)
-//                }
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
 }
 
 enum UnsplashAPIError: Error {

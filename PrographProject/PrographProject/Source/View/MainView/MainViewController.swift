@@ -85,7 +85,7 @@ final class MainViewController: UIViewController {
     }
     
     private func fetchThirtyData() {
-        unsplashAPI.fetchList(page, 30, .latest) { result in
+        unsplashAPI.fetchDatas(page, 30, .latest) { result in
             switch result {
             case .success(let mainImageDatas):
                 for mainImageData in mainImageDatas {
@@ -100,10 +100,11 @@ final class MainViewController: UIViewController {
     }
     
     private func changeCellforFetchImage(with mainImageData: MainImageDataDTO) {
-        NetworkManager.shared.fetchImage(urlString: mainImageData.urls.regular) { result in
+        NetworkManager.shared.fetchData(with: mainImageData.urls.regular) { result in
             switch result {
+            case .success(let data):
+                let imageData = UIImage(data: data)
                 
-            case .success(let imageData):
                 DispatchQueue.main.async {
                     let processedData = ImageData(id: mainImageData.id,
                                                   description: mainImageData.description,

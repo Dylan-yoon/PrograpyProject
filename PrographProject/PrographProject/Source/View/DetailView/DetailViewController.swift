@@ -154,7 +154,7 @@ final class DetailViewController: UIViewController {
     }
 }
 
-//MARK: -Configure Layout
+//MARK: - Configure Layout
 extension DetailViewController {
     
     private func configureLayout() {
@@ -233,12 +233,16 @@ extension DetailViewController {
         unsplashAPI.fetchData(with: defaultID) { result in
             switch result {
             case .success(let data):
-//                guard let data = data else { return }
-                
-                NetworkManager.shared.fetchImage(urlString: data.urls.regular) { result in
+                NetworkManager.shared.fetchData(with: data.urls.regular) { result in
                     switch result {
-                    case .success(let image):
-                        self.imageData = .init(id: data.id, description: data.description, urlString: data.urls.regular, uiimage: image, userName: data.user.username)
+                    case .success(let imageData):
+                        let image = UIImage(data: imageData)
+                        
+                        self.imageData = .init(id: data.id,
+                                               description: data.description,
+                                               urlString: data.urls.regular,
+                                               uiimage: image,
+                                               userName: data.user.username)
                         
                         DispatchQueue.main.async {
                             self.configureViewData()
@@ -247,7 +251,6 @@ extension DetailViewController {
                         print(error.localizedDescription)
                     }
                 }
-                
             case .failure(let error):
                 print(error.localizedDescription)
             }
