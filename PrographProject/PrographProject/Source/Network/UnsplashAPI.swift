@@ -30,24 +30,66 @@ final class UnsplashAPI {
                 } catch {
                     print(error.localizedDescription)
                 }
-                
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
     }
     
-    func fetchData(with id: String) {
+    func fetchData(with id: String, completion: @escaping (Result<MainImageDataDTO, UnsplashAPIError>) -> Void) {
+        let endPoint = EndPoint(baseURL: "api.unsplash.com", path: "/photos/\(id)",queryItems: [client])
         
+        NetworkManager.shared.fetchData(with: endPoint) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData = try JSONDecoder().decode(MainImageDataDTO.self, from: data)
+                    
+                    completion(.success(decodedData))
+                } catch {
+                    print(error.localizedDescription)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
-    // 1~30
-    func fetchRandomPhoto(count: Int) {
+    func fetchRandomPhoto(count: Int, completion: @escaping (Result<[MainImageDataDTO], UnsplashAPIError>) -> Void) {
+        let count = URLQueryItem(name: "count", value: "\(count)")
+        let endPoint = EndPoint(baseURL: "api.unsplash.com", path: "/photos", queryItems: [client, count])
         
+        NetworkManager.shared.fetchData(with: endPoint) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData = try JSONDecoder().decode([MainImageDataDTO].self, from: data)
+                    
+                    completion(.success(decodedData))
+                } catch {
+                    print(error.localizedDescription)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
-//    
-//    func fetchImage(for url: String) {
-//        
+    
+//    private func fetchData<T: Decodable>(using endPoint: EndPoint, completion: @escaping (Result<T, UnsplashAPIError>) -> Void) {
+//        NetworkManager.shared.fetchData(with: endPoint) { result in
+//            switch result {
+//            case .success(let data):
+//                do {
+//                    let decodedData = try JSONDecoder().decode(T.self, from: data)
+//                    
+//                    completion(.success(decodedData))
+//                } catch {
+//                    print(error.localizedDescription)
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
 //    }
 }
 

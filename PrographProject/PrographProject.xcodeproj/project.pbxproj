@@ -26,6 +26,7 @@
 		F62583992B6C270C001DC03F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62583982B6C270C001DC03F /* CoreDataManager.swift */; };
 		F625839C2B6C2731001DC03F /* BookMark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F625839A2B6C2731001DC03F /* BookMark.xcdatamodeld */; };
 		F672B85D2B79065D00053299 /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F672B85C2B79065D00053299 /* UnsplashAPI.swift */; };
+		F672B85F2B7B6C8C00053299 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F672B85E2B7B6C8C00053299 /* HTTPMethod.swift */; };
 		F68068792B6C9E4400EAC09E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68068782B6C9E4400EAC09E /* DetailViewController.swift */; };
 		F680687C2B6CD10900EAC09E /* DetailImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F680687B2B6CD10900EAC09E /* DetailImageView.swift */; };
 		F68236332B6DFADB00BA8C32 /* RandomCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68236322B6DFADB00BA8C32 /* RandomCardView.swift */; };
@@ -58,6 +59,7 @@
 		F62583982B6C270C001DC03F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F625839B2B6C2731001DC03F /* BookMark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookMark.xcdatamodel; sourceTree = "<group>"; };
 		F672B85C2B79065D00053299 /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
+		F672B85E2B7B6C8C00053299 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		F68068782B6C9E4400EAC09E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F680687B2B6CD10900EAC09E /* DetailImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageView.swift; sourceTree = "<group>"; };
 		F68236322B6DFADB00BA8C32 /* RandomCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCardView.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				F625838F2B6BB442001DC03F /* NetworkManager.swift */,
 				F672B85C2B79065D00053299 /* UnsplashAPI.swift */,
 				F62583952B6C1B2A001DC03F /* UnsplashAPIEndPoint.swift */,
+				F672B85E2B7B6C8C00053299 /* HTTPMethod.swift */,
 				F62583912B6BB4F1001DC03F /* MainImageDataDTO.swift */,
 			);
 			path = Network;
@@ -367,6 +370,7 @@
 				F68236332B6DFADB00BA8C32 /* RandomCardView.swift in Sources */,
 				F62583992B6C270C001DC03F /* CoreDataManager.swift in Sources */,
 				F682363A2B6E971700BA8C32 /* Bookmark+CoreDataProperties.swift in Sources */,
+				F672B85F2B7B6C8C00053299 /* HTTPMethod.swift in Sources */,
 				F62583562B67E838001DC03F /* MainViewController.swift in Sources */,
 				F68236362B6E791200BA8C32 /* ImageData.swift in Sources */,
 			);

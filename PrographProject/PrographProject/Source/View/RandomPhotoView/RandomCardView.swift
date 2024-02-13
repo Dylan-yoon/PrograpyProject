@@ -10,6 +10,7 @@ import UIKit
 final class RandomCardView: UIView, UIGestureRecognizerDelegate {
     private var allData: [ImageData] = []
     private var index: Int = 0
+    private var unsplashAPI = UnsplashAPI()
     
     weak var delegate: RandomCardViewDelegate?
     
@@ -104,9 +105,7 @@ extension RandomCardView {
     }
     
     private func fetchFiveData(count: Int ,completion: @escaping () -> Void) {
-        let api = UnsplashAPIEndPoint.random(count: count)
-        
-        NetworkManager.shared.TODO_DELETE_fetchData(with: api) { result in
+        unsplashAPI.fetchRandomPhoto(count: count) { result in
             switch result {
             case .success(let mainImageDtaDTO):
                 

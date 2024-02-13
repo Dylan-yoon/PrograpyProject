@@ -19,6 +19,7 @@ final class DetailViewController: UIViewController {
     private var defaultID: String
     private var isBookmarked: Bool
     private var activityIndicator = UIActivityIndicatorView()
+    private var unsplashAPI = UnsplashAPI()
     
     weak var delegate: BookMarkConformable?
     
@@ -229,10 +230,10 @@ extension DetailViewController {
 extension DetailViewController {
     
     private func fetchDataForID() {
-        NetworkManager.shared.TODO_DELETE_fetchData(with: .id(id: defaultID)) { result in
+        unsplashAPI.fetchData(with: defaultID) { result in
             switch result {
             case .success(let data):
-                guard let data = data.first else { return }
+//                guard let data = data else { return }
                 
                 NetworkManager.shared.fetchImage(urlString: data.urls.regular) { result in
                     switch result {
