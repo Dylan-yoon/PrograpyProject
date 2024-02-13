@@ -14,6 +14,7 @@ protocol BookMarkConformable: AnyObject {
 final class MainViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<MainSection, ImageData>?
     private var page = 0
+    private var unsplashAPI = UnsplashAPI()
     
     private let logoView: UIImageView = {
         let view = UIImageView()
@@ -84,43 +85,45 @@ final class MainViewController: UIViewController {
     }
     
     private func fetchThirtyData() {
-        
-        NetworkManager.shared.fetchData(with: .main(page: page, perPage: 30, orderBy: .latest)) { result in
+        unsplashAPI.fetchList(page, 30, .latest) { result in
             switch result {
             case .success(let mainImageDatas):
-                
                 for mainImageData in mainImageDatas {
-                    
-                    NetworkManager.shared.fetchImage(urlString: mainImageData.urls.regular) { result in
-                        switch result {
-                        case .success(let imageData):
-                            DispatchQueue.main.async {
-                                let processedData = ImageData(id: mainImageData.id,
-                                                              description: mainImageData.description,
-                                                              urlString: mainImageData.urls.regular,
-                                                              uiimage: imageData,
-                                                              userName: mainImageData.user.username
-                                )
-                                
-                                guard var snapshot = self.dataSource?.snapshot() else {
-                                    fatalError("SnapShot Binding Error _ Fetch Data")
-                                }
-                                
-                                snapshot.appendItems([processedData], toSection: .recents)
-                                self.dataSource?.apply(snapshot)
-                            }
-                            
-                        case .failure(let error):
-                            print(error.localizedDescription)
-                        }
-                    }
+                    self.changeCellforFetchImage(with: mainImageData)
                 }
-            case .failure(_):
-                fatalError("CollectionView Fetch ERROR")
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
         
         self.page += 1
+    }
+    
+    private func changeCellforFetchImage(with mainImageData: MainImageDataDTO) {
+        NetworkManager.shared.fetchImage(urlString: mainImageData.urls.regular) { result in
+            switch result {
+                
+            case .success(let imageData):
+                DispatchQueue.main.async {
+                    let processedData = ImageData(id: mainImageData.id,
+                                                  description: mainImageData.description,
+                                                  urlString: mainImageData.urls.regular,
+                                                  uiimage: imageData,
+                                                  userName: mainImageData.user.username
+                    )
+                    
+                    guard var snapshot = self.dataSource?.snapshot() else {
+                        fatalError("SnapShot Binding Error _ Fetch Data")
+                    }
+                    
+                    snapshot.appendItems([processedData], toSection: .recents)
+                    self.dataSource?.apply(snapshot)
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 

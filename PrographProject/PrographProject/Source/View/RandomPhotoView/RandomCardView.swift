@@ -106,7 +106,7 @@ extension RandomCardView {
     private func fetchFiveData(count: Int ,completion: @escaping () -> Void) {
         let api = UnsplashAPIEndPoint.random(count: count)
         
-        NetworkManager.shared.fetchData(with: api) { result in
+        NetworkManager.shared.TODO_DELETE_fetchData(with: api) { result in
             switch result {
             case .success(let mainImageDtaDTO):
                 

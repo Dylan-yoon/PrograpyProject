@@ -229,7 +229,7 @@ extension DetailViewController {
 extension DetailViewController {
     
     private func fetchDataForID() {
-        NetworkManager.shared.fetchData(with: .id(id: defaultID)) { result in
+        NetworkManager.shared.TODO_DELETE_fetchData(with: .id(id: defaultID)) { result in
             switch result {
             case .success(let data):
                 guard let data = data.first else { return }

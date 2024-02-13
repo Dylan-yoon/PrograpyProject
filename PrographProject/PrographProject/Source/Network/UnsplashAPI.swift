@@ -8,22 +8,29 @@
 import Foundation
 
 final class UnsplashAPI {
-    let client = URLQueryItem(name: "client_id", value: "IxQ_JAE-x1Cx0UuHVg_jXoPWYWi_nGXcjVSyqDXYLhI")
+    private let client = URLQueryItem(name: "client_id", value: "IxQ_JAE-x1Cx0UuHVg_jXoPWYWi_nGXcjVSyqDXYLhI")
     
     enum OrderBy: String {
         case latest, oldest, popular
     }
     
-    func fetchList(_ page: Int, _ per_page: Int, _ order_by: OrderBy = .latest, completion: @escaping (Result<Data, UnsplashAPIError>) -> Void) {
+    func fetchList(_ page: Int, _ per_page: Int, _ order_by: OrderBy = .latest, completion: @escaping (Result<[MainImageDataDTO], UnsplashAPIError>) -> Void) {
         let page = URLQueryItem(name: "page", value: "\(page)")
         let perPage = URLQueryItem(name: "per_page", value: "\(per_page)")
         let orderBy = URLQueryItem(name: "order_by", value: "\(order_by.rawValue)")
-        let endPoint = EndPoint(baseURL: "api.unsplash.com", path: "/photos", queryItems: [page, perPage, orderBy])
+        let endPoint = EndPoint(baseURL: "api.unsplash.com", path: "/photos", queryItems: [client, page, perPage, orderBy])
         
-        NetworkManager.shared.fetchData1(with: endPoint) { result in
+        NetworkManager.shared.fetchData(with: endPoint) { result in
             switch result {
             case .success(let data):
-                completion(.success(data))
+                do {
+                    let decodedData = try JSONDecoder().decode([MainImageDataDTO].self, from: data)
+                    
+                    completion(.success(decodedData))
+                } catch {
+                    print(error.localizedDescription)
+                }
+                
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -38,8 +45,10 @@ final class UnsplashAPI {
     func fetchRandomPhoto(count: Int) {
         
     }
-    
-//    let decodedData = try jsonDecoder.decode(MainImageDataDTO.self, from: data)
+//    
+//    func fetchImage(for url: String) {
+//        
+//    }
 }
 
 enum UnsplashAPIError: Error {
