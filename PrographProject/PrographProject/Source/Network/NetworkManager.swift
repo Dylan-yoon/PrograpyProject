@@ -7,9 +7,62 @@
 
 import UIKit
 
-class NetworkManager {
+final class NetworkManager {
+    static let shared = NetworkManager()
     
-    static func fetchData(api: UnsplashAPI, completion: @escaping (Result<[MainImageDataDTO], NetworkError>) -> Void) {
+    private init() { }
+    
+    private let urlSession = URLSession.shared
+    
+    func fetchData1(with endPoint: EndPoint, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+        guard let url = endPoint.generateURL().url else {
+            completion(.failure(.apiError))
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        
+        let task = urlSession.dataTask(with: request) { data, response, error in
+            //Error
+            if error != nil {
+                completion(.failure(.defaultsError))
+                return
+            }
+            
+            //Response
+            guard let response = response as? HTTPURLResponse else {
+                completion(.failure(.responseError))
+                return
+            }
+            
+            switch response.statusCode {
+            case 100...199:
+                debugPrint("Information responses")
+            case 200...299:
+                debugPrint("Successful responses")
+            case 300...399:
+                debugPrint("Redirection messages")
+            case 400...499:
+                debugPrint("Client error responses")
+            case 500...599:
+                debugPrint("Server error responses")
+            default:
+                debugPrint("Unknown StatusCode Error")
+            }
+            
+            //Data
+            guard let data = data else {
+                completion(.failure(.getDataError))
+                return
+            }
+            
+            completion(.success(data))
+        }
+        
+        task.resume()
+    }
+    
+    func fetchData(with api: UnsplashAPIEndPoint, completion: @escaping (Result<[MainImageDataDTO], NetworkError>) -> Void) {
         
         guard let url = api.generateURL().url else {
             completion(.failure(.apiError))
@@ -18,12 +71,14 @@ class NetworkManager {
         
         let request = URLRequest(url: url)
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = urlSession.dataTask(with: request) { data, response, error in
+            //Error
             if error != nil {
                 completion(.failure(.defaultsError))
                 return
             }
             
+            //Response
             guard let response = response as? HTTPURLResponse else {
                 completion(.failure(.responseError))
                 return
@@ -31,6 +86,7 @@ class NetworkManager {
             
             debugPrint(response.statusCode)
             
+            //Data
             guard let data = data else {
                 completion(.failure(.getDataError))
                 return
@@ -54,8 +110,9 @@ class NetworkManager {
         
         task.resume()
     }
-    
-    static func fetchImage(urlString: String, completion: @escaping (Result<(UIImage), NetworkError>) -> Void) {
+        
+    //TODO: Delete
+    func fetchImage(urlString: String, completion: @escaping (Result<(UIImage), NetworkError>) -> Void) {
         guard let url = URL(string: urlString) else {
             completion(.failure(.apiError))
             return

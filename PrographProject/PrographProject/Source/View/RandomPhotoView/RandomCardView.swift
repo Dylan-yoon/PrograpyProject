@@ -104,14 +104,14 @@ extension RandomCardView {
     }
     
     private func fetchFiveData(count: Int ,completion: @escaping () -> Void) {
-        let api = UnsplashAPI.random(count: count)
+        let api = UnsplashAPIEndPoint.random(count: count)
         
-        NetworkManager.fetchData(api: api) { result in
+        NetworkManager.shared.fetchData(with: api) { result in
             switch result {
             case .success(let mainImageDtaDTO):
                 
                 for data in mainImageDtaDTO {
-                    NetworkManager.fetchImage(urlString: data.urls.regular) { result in
+                    NetworkManager.shared.fetchImage(urlString: data.urls.regular) { result in
                         switch result {
                         case .success(let imageData):
                             let processedData = ImageData(id: data.id,

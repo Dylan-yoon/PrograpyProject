@@ -85,13 +85,13 @@ final class MainViewController: UIViewController {
     
     private func fetchThirtyData() {
         
-        NetworkManager.fetchData(api: .main(page: page, perPage: 30, orderBy: .latest)) { result in
+        NetworkManager.shared.fetchData(with: .main(page: page, perPage: 30, orderBy: .latest)) { result in
             switch result {
             case .success(let mainImageDatas):
                 
                 for mainImageData in mainImageDatas {
                     
-                    NetworkManager.fetchImage(urlString: mainImageData.urls.regular) { result in
+                    NetworkManager.shared.fetchImage(urlString: mainImageData.urls.regular) { result in
                         switch result {
                         case .success(let imageData):
                             DispatchQueue.main.async {

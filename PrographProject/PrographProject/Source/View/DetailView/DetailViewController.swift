@@ -229,12 +229,12 @@ extension DetailViewController {
 extension DetailViewController {
     
     private func fetchDataForID() {
-        NetworkManager.fetchData(api: .id(id: defaultID)) { result in
+        NetworkManager.shared.fetchData(with: .id(id: defaultID)) { result in
             switch result {
             case .success(let data):
                 guard let data = data.first else { return }
                 
-                NetworkManager.fetchImage(urlString: data.urls.regular) { result in
+                NetworkManager.shared.fetchImage(urlString: data.urls.regular) { result in
                     switch result {
                     case .success(let image):
                         self.imageData = .init(id: data.id, description: data.description, urlString: data.urls.regular, uiimage: image, userName: data.user.username)
