@@ -16,7 +16,7 @@ final class NetworkManager {
     
     func fetchData(with endPoint: EndPoint, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         guard let url = endPoint.generateURL().url else {
-            completion(.failure(.apiError))
+            completion(.failure(.endPointError))
             return
         }
         
@@ -25,7 +25,7 @@ final class NetworkManager {
         let task = urlSession.dataTask(with: request) { data, response, error in
             //Error
             if error != nil {
-                completion(.failure(.defaultsError))
+                completion(.failure(.dataTaskError))
                 return
             }
             
@@ -37,17 +37,17 @@ final class NetworkManager {
             
             switch response.statusCode {
             case 100...199:
-                debugPrint("Information responses")
+                completion(.failure(.informationError))
             case 200...299:
-                debugPrint("Successful responses")
+                completion(.failure(.successfulError))
             case 300...399:
-                debugPrint("Redirection messages")
+                completion(.failure(.redirectionError))
             case 400...499:
-                debugPrint("Client error responses")
+                completion(.failure(.clientError))
             case 500...599:
-                debugPrint("Server error responses")
+                completion(.failure(.serverError))
             default:
-                debugPrint("Unknown StatusCode Error")
+                completion(.failure(.unknownerror))
             }
             
             //Data
@@ -64,7 +64,7 @@ final class NetworkManager {
     
     func fetchData(with url: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         guard let url = URL(string: url) else {
-            completion(.failure(.apiError))
+            completion(.failure(.endPointError))
             return
         }
         
@@ -73,7 +73,7 @@ final class NetworkManager {
         let task = urlSession.dataTask(with: request) { data, response, error in
             //Error
             if error != nil {
-                completion(.failure(.defaultsError))
+                completion(.failure(.dataTaskError))
                 return
             }
             
@@ -85,17 +85,17 @@ final class NetworkManager {
             
             switch response.statusCode {
             case 100...199:
-                debugPrint("Information responses")
+                completion(.failure(.informationError))
             case 200...299:
-                debugPrint("Successful responses")
+                completion(.failure(.successfulError))
             case 300...399:
-                debugPrint("Redirection messages")
+                completion(.failure(.redirectionError))
             case 400...499:
-                debugPrint("Client error responses")
+                completion(.failure(.clientError))
             case 500...599:
-                debugPrint("Server error responses")
+                completion(.failure(.serverError))
             default:
-                debugPrint("Unknown StatusCode Error")
+                completion(.failure(.unknownerror))
             }
             
             //Data
@@ -112,9 +112,41 @@ final class NetworkManager {
 }
 
 enum NetworkError: Error {
-    case apiError
-    case defaultsError
+    case endPointError
+    case dataTaskError
     case responseError
-    case JSONDecoderError
     case getDataError
+    case unknownerror
+    case informationError
+    case successfulError
+    case redirectionError
+    case clientError
+    case serverError
+}
+
+extension NetworkError: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .endPointError:
+            return "Invaild URL"
+        case .dataTaskError:
+            return "DataTask Error"
+        case .responseError:
+            return "Response Error"
+        case .getDataError:
+            return "Data Error"
+        case .unknownerror:
+            return "Unknown Error"
+        case .informationError:
+            return "Information responses"
+        case .successfulError:
+            return "Successful responses"
+        case .redirectionError:
+            return "Redirection messages"
+        case .clientError:
+            return "Client error responses"
+        case .serverError:
+            return "Server error responses"
+        }
+    }
 }

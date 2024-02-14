@@ -12,7 +12,7 @@ struct EndPoint {
     var baseURL: String
     var path: String
     var queryItems: [URLQueryItem]
-    var method: HttpMethod = .get
+//    var method: HttpMethod = .get
     
     func generateURL() -> URLComponents {
         var resultUrlComponents = URLComponents()
